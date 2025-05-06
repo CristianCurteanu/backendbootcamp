@@ -1,8 +1,8 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Backend Bootcamp – Main documents page</title>
+    <title>Backend Bootcamp – </title>
     <link>http://localhost:1313/</link>
-    <description>Recent content in Main documents page on Backend Bootcamp</description>
+    <description>Recent content on Backend Bootcamp</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 10 Mar 2025 20:31:02 +0000</lastBuildDate>

@@ -1,0 +1,19 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Backend Bootcamp – Python</title>
+    <link>http://localhost:1313/docs/02.python/</link>
+    <description>Recent content in Python on Backend Bootcamp</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 10 Mar 2025 20:31:02 +0000</lastBuildDate>
+    
+	  <atom:link href="http://localhost:1313/docs/02.python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+      
+        
+      
+    
+    
+  </channel>
+</rss>

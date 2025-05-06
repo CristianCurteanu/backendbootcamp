@@ -1,7 +1,8 @@
 ---
 draft: false
 title: 'Tutorials'
-layout: wide
+layout: single
+weight: 1
 ---
 
 
@@ -19,7 +20,7 @@ layout: wide
     subtitle="Explore basics and use cases of Python programming language"
     class="hx-aspect-auto md:hx-aspect-[1.1/1] max-lg:hx-min-h-[340px]"
     style="background: linear-gradient(45deg,rgba(36, 93, 248, 0.25),rgba(251, 255, 0, 0.25));"
-    link="/tutorials/python"
+    link="/python"
   >}}
   {{< hextra/feature-card
     title="JavaScript"

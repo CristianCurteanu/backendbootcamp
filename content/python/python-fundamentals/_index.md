@@ -1,6 +1,6 @@
 ---
 date: '2025-03-10T20:31:18Z'
-title: 'Python Programming for Beginners'
+title: 'Python Basics'
 weight: 2
 # prev: /docs/python-basics/
 next: /docs/01.python-basics/01-introduction-python

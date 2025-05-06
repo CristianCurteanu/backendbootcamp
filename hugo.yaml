@@ -50,6 +50,9 @@ menu:
 
 
 params:
+  sidebar:
+    hide: true
+
   navbar:
     displayTitle: true
     displayLogo: false

@@ -2,123 +2,127 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/python-fundamentals/09-practice-projects/01-command-line-tool/</loc>
+    <loc>http://localhost:1313/python/</loc>
+    <lastmod>2025-03-10T20:31:18+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/01-introduction-to-python/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/09-practice-projects/01-command-line-tool/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/01-introduction-to-python/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/08-error-handling/01-types-of-errors/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/02-control-flow/</loc>
+    <loc>http://localhost:1313/tutorials/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/09-practice-projects/02-data-analysis-script/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/08-error-handling/01-types-of-errors/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/02-setup/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/</loc>
+    <lastmod>2025-03-10T20:31:18+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/08-error-handling/02-try-except-blocks/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/02-control-flow/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/03-data-structures/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/09-practice-projects/02-data-analysis-script/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/08-error-handling/04-debugging-techniques/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/02-setup/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/08-error-handling/03-raising-exceptions/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/08-error-handling/02-try-except-blocks/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/03-syntax-basics/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/03-data-structures/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/04-variables-and-types/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/08-error-handling/04-debugging-techniques/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/09-practice-projects/03-web-scraping-basics/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/08-error-handling/03-raising-exceptions/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/04-functions/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/03-syntax-basics/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/09-practice-projects/04-next-steps/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/04-variables-and-types/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/08-error-handling/05-using-python-debugger/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/09-practice-projects/03-web-scraping-basics/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/05-modules-and-packages/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/04-functions/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/05-operators-and-expressions/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/09-practice-projects/04-next-steps/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/01-basics/06-input-output-operations/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/08-error-handling/05-using-python-debugger/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/05-modules-and-packages/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/02-control-flow/01-conditional-statements/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/05-operators-and-expressions/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/06-file-operations/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/01-basics/06-input-output-operations/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/08-error-handling/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/02-control-flow/02-loops/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/02-control-flow/01-conditional-statements/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/02-control-flow/03-break-and-continue/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/06-file-operations/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/09-practice-projects/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/08-error-handling/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/02-control-flow/04-pass-statement/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/02-control-flow/02-loops/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/02-control-flow/05-exception-handling/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/02-control-flow/03-break-and-continue/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/03-data-structures/01-lists/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/09-practice-projects/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/03-data-structures/02-tuples/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/02-control-flow/04-pass-statement/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/03-data-structures/03-dictionaries/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/02-control-flow/05-exception-handling/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/03-data-structures/04-sets/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/03-data-structures/01-lists/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/03-data-structures/05-string-manipulations/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/03-data-structures/02-tuples/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/04-functions/01-defining-and-calling-functions/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/03-data-structures/03-dictionaries/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/04-functions/02-parameters-and-arguments/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/03-data-structures/04-sets/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/04-functions/03-return-statements/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/03-data-structures/05-string-manipulations/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/04-functions/04-variable-scope/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/04-functions/01-defining-and-calling-functions/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/04-functions/05-lambda-functions/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/04-functions/02-parameters-and-arguments/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/05-modules-and-packages/01-importing-modules/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/04-functions/03-return-statements/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/05-modules-and-packages/02-create-modules/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/04-functions/04-variable-scope/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/05-modules-and-packages/03-standard-library-overview/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/04-functions/05-lambda-functions/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/05-modules-and-packages/04-install-external-packages/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/05-modules-and-packages/01-importing-modules/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/05-modules-and-packages/05-virtual-environments/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/05-modules-and-packages/02-create-modules/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/06-file-operations/01-opening-and-closing-files/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/05-modules-and-packages/03-standard-library-overview/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/06-file-operations/02-reading-and-writing-files/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/05-modules-and-packages/04-install-external-packages/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/06-file-operations/03-working-with-csv-and-json-files/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/05-modules-and-packages/05-virtual-environments/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/06-file-operations/04-error-handling-in-file-operations/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/06-file-operations/01-opening-and-closing-files/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/01-classes-and-objects/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/06-file-operations/02-reading-and-writing-files/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/02-attributes-and-methods/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/06-file-operations/03-working-with-csv-and-json-files/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/03-constructors/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/06-file-operations/04-error-handling-in-file-operations/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/04-inheritance/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/01-classes-and-objects/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/05-polymorphism/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/02-attributes-and-methods/</loc>
   </url><url>
-    <loc>http://localhost:1313/python-fundamentals/07-object-oriented-programming/06-encapsulation/</loc>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/03-constructors/</loc>
+  </url><url>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/04-inheritance/</loc>
+  </url><url>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/05-polymorphism/</loc>
+  </url><url>
+    <loc>http://localhost:1313/python/python-fundamentals/07-object-oriented-programming/06-encapsulation/</loc>
   </url><url>
     <loc>http://localhost:1313/</loc>
     <lastmod>2025-03-10T20:31:02+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/tutorials/python/</loc>
-  </url><url>
     <loc>http://localhost:1313/tags/</loc>
-  </url><url>
-    <loc>http://localhost:1313/tutorials/</loc>
   </url>
 </urlset>

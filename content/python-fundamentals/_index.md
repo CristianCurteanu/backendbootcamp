@@ -4,6 +4,8 @@ title: 'Python Programming for Beginners'
 weight: 2
 # prev: /docs/python-basics/
 next: /docs/01.python-basics/01-introduction-python
+draft: true
+toc: false
 ---
 
 Explore the following sections to learn Python basics:

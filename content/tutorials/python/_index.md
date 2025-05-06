@@ -1,5 +1,6 @@
 ---
 title: 'Python Roadmap'
+linkTitle: 'Python'
 toc: false
 ---
 

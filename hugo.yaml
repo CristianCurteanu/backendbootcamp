@@ -22,6 +22,10 @@ markup:
   highlight:
     noClasses: false
 
+services:
+  googleAnalytics:
+    ID: G-4PKQTCFR6V
+
 menu:
   main:
     - name: Tutorials

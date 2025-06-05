@@ -11,6 +11,8 @@ Explore the following sections to learn Python basics:
 
 <!--more-->
 
+<iframe src="https://backendbootcamp.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+
 {{< cards >}}
   {{< card link="01-basics" title="01. Python Basics" icon="document-duplicate" >}}
   {{< card link="02-control-flow" title="02. Control Flow" icon="document-duplicate" >}}

@@ -22,15 +22,37 @@ weight: 2
   {{< hextra/feature-card
     title="Python Basics"
     subtitle="Learn Python Programming basics here"
-    class="hx-aspect-auto md:hx-aspect-[1.1/1] max-lg:hx-min-h-[340px]"
+    class="hx-aspect-auto max-lg:hx-min-h-[340px]"
     style="background: linear-gradient(45deg,rgba(36, 93, 248, 0.25),rgba(251, 255, 0, 0.25));"
     link="/python/python-fundamentals/"
   >}}
   {{< hextra/feature-card
     title="Python Standard Library"
     subtitle="Learn Python Standard Library here"
-    class="hx-aspect-auto md:hx-aspect-[1.1/1] max-lg:hx-min-h-[340px]"
+    class="hx-aspect-auto max-lg:hx-min-h-[340px]"
     style="background: linear-gradient(45deg,rgba(36, 93, 248, 0.25),rgba(251, 255, 0, 0.25));"
     link="/python/python-standard-library/"
+  >}}  
+{{< /hextra/feature-grid >}}
+
+<br/>
+<h1> Web Development: </h1>
+<br/>
+
+{{< hextra/feature-grid >}}
+  {{< hextra/feature-card
+    title="Django Web Framework"
+    subtitle="Learn Python Standard Library here"
+    class="hx-aspect-auto max-lg:hx-min-h-[340px]"
+  >}}
+  {{< hextra/feature-card
+    title="Flask Web Framework"
+    subtitle="Learn Python Standard Library here"
+    class="hx-aspect-auto max-lg:hx-min-h-[340px]"
+  >}}
+  {{< hextra/feature-card
+    title="FastAPI Web Framework"
+    subtitle="Learn Python Standard Library here"
+    class="hx-aspect-auto max-lg:hx-min-h-[340px]"
   >}}  
 {{< /hextra/feature-grid >}}

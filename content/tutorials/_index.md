@@ -82,7 +82,6 @@ weight: 1
     subtitle="Simple and easy to use, yet powerful and feature-rich."
     class="hx-aspect-auto md:hx-aspect-[1.1/1]"
     style="background: radial-gradient(ellipse at 50% 80%,rgba(194,97,254,0.15),hsla(0,0%,100%,0));"
-    link="/docs/python"
   >}}
   {{< hextra/feature-card
     title="Operating systems"

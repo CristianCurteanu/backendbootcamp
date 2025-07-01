@@ -1,5 +1,5 @@
-module github.com/CristiCurteanu/backend-bootcamp
+module github.com/CristianCurteanu/backend-bootcamp
 
-go 1.22.2
+go 1.23.10
 
 require github.com/imfing/hextra v0.9.7 // indirect

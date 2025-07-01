@@ -2,7 +2,6 @@
 date: '2025-03-10T20:31:18Z'
 title: 'Python Basics'
 weight: 2
-# prev: /docs/python-basics/
 next: /docs/01.python-basics/01-introduction-python
 toc: false
 ---
@@ -10,8 +9,8 @@ toc: false
 Explore the following sections to learn Python basics:
 
 <!--more-->
-
-<iframe src="https://backendbootcamp.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+<!-- 
+<iframe src="https://backendbootcamp.substack.com/embed" width="480" height="320" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe> -->
 
 {{< cards >}}
   {{< card link="01-basics" title="01. Python Basics" icon="document-duplicate" >}}

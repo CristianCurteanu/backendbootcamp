@@ -112,7 +112,3 @@ Python's adoption continues to grow across industries, and understanding Python 
 While Python is excellent for many applications, it may not be the best choice for all scenarios. Applications requiring extreme performance optimization or low-level system access might benefit from languages like C or C++. However, Python often allows for integration with these languages when necessary.
 
 In the upcoming sections, we'll dive deeper into Python's development environment, syntax fundamentals, and begin building our programming skills step by step.
-
-{{< cards >}}
-  {{< card link="/python/basics/02-setup" title="Next" icon="arrow-right" >}}
-{{< /cards >}}

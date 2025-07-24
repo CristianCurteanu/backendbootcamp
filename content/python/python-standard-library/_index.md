@@ -2,6 +2,8 @@
 title: 'Python Standard Library'
 weight: 2
 toc: false
+sidebar:
+  exclude: true
 ---
 
 <br />

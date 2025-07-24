@@ -4,6 +4,9 @@ title: 'Python Basics'
 weight: 2
 next: /docs/01.python-basics/01-introduction-python
 toc: false
+toc: false
+sidebar:
+  exclude: true
 ---
 
 Explore the following sections to learn Python basics:

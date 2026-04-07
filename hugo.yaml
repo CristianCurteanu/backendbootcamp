@@ -28,15 +28,18 @@ services:
 
 menu:
   main:
-    - name: Tutorials
-      pageRef: /tutorials
-      weight: 1
+    - name: Tools
+      pageRef: /tools
+      weight: 2
+    - name: Guides
+      pageRef: /guides
+      weight: 3
     - name: About
       pageRef: /about
-      weight: 2
+      weight: 4
     - name: Contact ↗
       url: "https://www.linkedin.com/in/cristian-curteanu/"
-      weight: 3
+      weight: 5
     - name: Search
       weight: 4
       params:
@@ -54,8 +57,7 @@ menu:
 
 
 params:
-  sidebar:
-    hide: true
+  author: "Cristian Curteanu"
 
   navbar:
     displayTitle: true

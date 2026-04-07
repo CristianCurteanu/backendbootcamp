@@ -1,0 +1,127 @@
+{{/*
+  JSON-LD Schema Markup
+  Injected at end of <head> via hextra's custom/head-end.html extension point.
+
+  Schema types by page:
+    Homepage          → WebSite + EducationalOrganization
+    Language hub      → Course + BreadcrumbList  (len .Ancestors == 1)
+    Section pages     → BreadcrumbList            (len .Ancestors == 2-3)
+    Lesson pages      → Article + LearningResource + BreadcrumbList (len .Ancestors >= 4)
+*/}}
+
+{{- $siteTitle := site.Title -}}
+{{- $baseURL := strings.TrimRight "/" site.BaseURL -}}
+{{- $description := partial "utils/page-description.html" . -}}
+{{- $authorName := site.Params.author | default $siteTitle -}}
+{{- $ancestorCount := len .Ancestors -}}
+
+{{/* ── Build BreadcrumbList items ── */}}
+{{- $bcItems := slice -}}
+{{- $bcItems = $bcItems | append (dict
+    "@type"    "ListItem"
+    "position" 1
+    "name"     "Home"
+    "item"     (printf "%s/" $baseURL)
+) -}}
+
+{{- $pos := 1 -}}
+{{- range .Ancestors.Reverse -}}
+  {{- if not .IsHome -}}
+    {{- $pos = (add $pos 1) -}}
+    {{- $bcItems = $bcItems | append (dict
+        "@type"    "ListItem"
+        "position" $pos
+        "name"     .Title
+        "item"     .Permalink
+    ) -}}
+  {{- end -}}
+{{- end -}}
+
+{{- if not .IsHome -}}
+  {{- $pos = (add $pos 1) -}}
+  {{- $bcItems = $bcItems | append (dict
+      "@type"    "ListItem"
+      "position" $pos
+      "name"     .Title
+      "item"     .Permalink
+  ) -}}
+{{- end -}}
+
+{{/* ── Assemble @graph ── */}}
+{{- $graph := slice -}}
+
+{{- if .IsHome -}}
+
+  {{/* Homepage: WebSite + EducationalOrganization */}}
+  {{- $graph = $graph | append (dict
+      "@type"       "WebSite"
+      "name"        $siteTitle
+      "url"         (printf "%s/" $baseURL)
+      "description" $description
+      "publisher" (dict
+          "@type" "EducationalOrganization"
+          "name"  $siteTitle
+          "url"   (printf "%s/" $baseURL)
+      )
+  ) -}}
+
+{{- else -}}
+
+  {{/* Every non-home page: BreadcrumbList */}}
+  {{- $graph = $graph | append (dict
+      "@type"           "BreadcrumbList"
+      "itemListElement" $bcItems
+  ) -}}
+
+  {{- if eq $ancestorCount 1 -}}
+    {{/* Language / course hub (e.g. /python) */}}
+    {{- $graph = $graph | append (dict
+        "@type"       "Course"
+        "name"        .Title
+        "url"         .Permalink
+        "description" $description
+        "provider" (dict
+            "@type" "EducationalOrganization"
+            "name"  $siteTitle
+            "url"   (printf "%s/" $baseURL)
+        )
+    ) -}}
+
+  {{- else if ge $ancestorCount 4 -}}
+    {{/* Lesson page (4+ levels deep) */}}
+    {{- $parentTitle := "" -}}
+    {{- $parentURL := "" -}}
+    {{- with .Parent -}}
+      {{- $parentTitle = .Title -}}
+      {{- $parentURL  = .Permalink -}}
+    {{- end -}}
+
+    {{- $graph = $graph | append (dict
+        "@type"         (slice "Article" "LearningResource")
+        "headline"      .Title
+        "url"           .Permalink
+        "description"   $description
+        "datePublished" (.Date.Format "2006-01-02")
+        "dateModified"  (.Lastmod.Format "2006-01-02")
+        "author" (dict
+            "@type" "Person"
+            "name"  $authorName
+        )
+        "publisher" (dict
+            "@type" "EducationalOrganization"
+            "name"  $siteTitle
+            "url"   (printf "%s/" $baseURL)
+        )
+        "isPartOf" (dict
+            "@type" "Course"
+            "name"  $parentTitle
+            "url"   $parentURL
+        )
+    ) -}}
+  {{- end -}}
+
+{{- end -}}
+
+<script type="application/ld+json">
+{{ dict "@context" "https://schema.org" "@graph" $graph | jsonify (dict "indent" "  ") }}
+</script>

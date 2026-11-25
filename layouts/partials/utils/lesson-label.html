@@ -1,0 +1,2 @@
+{{- $n := partial "utils/lesson-number.html" . -}}
+{{- return (cond (ne $n "") (printf "%s %s" $n (.LinkTitle | default .Title)) (.LinkTitle | default .Title)) -}}

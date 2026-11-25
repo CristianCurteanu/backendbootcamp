@@ -1,0 +1,3 @@
+{{- /* The page template owns the only <h1>; any "# " inside content becomes an h2. */ -}}
+{{- $l := cond (lt .Level 2) 2 .Level -}}
+<h{{ $l }} id="{{ .Anchor | safeURL }}">{{ .Text | safeHTML }}<a class="anchor" href="#{{ .Anchor | safeURL }}" aria-label="Link to this section"></a></h{{ $l }}>

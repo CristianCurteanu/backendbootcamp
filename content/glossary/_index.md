@@ -3,8 +3,6 @@ title: 'Developer Glossary'
 linkTitle: 'Glossary'
 description: 'Plain-English definitions for backend engineering terms — JWT, CORS, regex, SLA, SLO, Dockerfile, OpenAPI, ER diagram, and 70+ more. Free with tool links.'
 weight: 5
-cascade:
-  type: docs
 ---
 
 Plain-English definitions for backend engineering terms, each linked to a free browser-based tool.

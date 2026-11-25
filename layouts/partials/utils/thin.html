@@ -1,0 +1,6 @@
+{{- /* True for placeholder pages ("coming soon"): noindex until the real content ships. */ -}}
+{{- $thin := false -}}
+{{- if .Params.noindex -}}{{- $thin = true -}}
+{{- else if and (not .IsHome) (in (lower .RawContent) "coming soon") (lt .WordCount 80) -}}{{- $thin = true -}}
+{{- end -}}
+{{- return $thin -}}

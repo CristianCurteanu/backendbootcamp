@@ -1,0 +1,24 @@
+{{- /* Client-side search index. Short keys keep it small:
+  t title, u url, d description, k kind, g group, l level, h headings, x body, n date */ -}}
+{{- $docs := slice -}}
+{{- range site.Pages -}}
+  {{- $skip := or .IsHome (eq .Kind "taxonomy") (eq .Kind "term") (eq .Type "search") (eq .Kind "404") -}}
+  {{- if not $skip -}}
+    {{- $kind := "Page" -}}{{- $group := "" -}}{{- $level := "" -}}
+    {{- if eq .Type "tutorial" -}}
+      {{- $c := partial "utils/tutorial-ctx.html" . -}}
+      {{- $kind = index (slice "Learning map" "Track" "Tutorial" "Module" "Lesson") $c.depth -}}
+      {{- if $c.tutorial }}{{ $group = $c.tutorial.Title }}{{ $level = $c.tutorial.Params.level | default "Beginner" }}{{ else if $c.category }}{{ $group = $c.category.Title }}{{ end -}}
+    {{- else if eq .Type "blog" -}}{{- $kind = cond .IsPage "Blog post" "Blog" -}}{{- $group = "Blog" -}}
+    {{- else if hasPrefix .RelPermalink "/tools" -}}{{- $kind = "Tool" -}}{{- $group = "Tools" -}}
+    {{- else if hasPrefix .RelPermalink "/guides" -}}{{- $kind = "Guide" -}}{{- $group = "Guides" -}}
+    {{- else if hasPrefix .RelPermalink "/glossary" -}}{{- $kind = "Glossary" -}}{{- $group = "Glossary" -}}
+    {{- end -}}
+    {{- $heads := slice -}}
+    {{- range (findRE `(?m)^#{2,3} .+$` .RawContent 12) -}}{{- $heads = $heads | append (replaceRE `^#+\s+` "" .) -}}{{- end -}}
+    {{- range (findRE `\{\{< part "[a-z]+" "[^"]+" >\}\}` .RawContent 4) -}}{{- $heads = $heads | append (replaceRE `^.*" "([^"]+)" >\}\}$` "$1" .) -}}{{- end -}}
+    {{- $body := trim (.Plain | replaceRE `\s+` " ") " " -}}
+    {{- $docs = $docs | append (dict "t" .Title "u" .RelPermalink "d" (partial "utils/description.html" .) "k" $kind "g" $group "l" $level "h" $heads "x" ($body | truncate 1400) "n" (cond (eq .Type "blog") (.Date.Unix) 0)) -}}
+  {{- end -}}
+{{- end -}}
+{{- $docs | jsonify -}}

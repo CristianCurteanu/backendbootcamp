@@ -1,0 +1,16 @@
+{{- /* Meta description: front matter first, then the first ~155 plain characters, then a template. */ -}}
+{{- $d := .Description -}}
+{{- if not $d -}}
+  {{- $plain := trim (.Plain | replaceRE `\s+` " ") " " -}}
+  {{- if ge (len $plain) 90 -}}
+    {{- $d = $plain | truncate 156 -}}
+  {{- else if .IsHome -}}
+    {{- $d = site.Params.description -}}
+  {{- else -}}
+    {{- $d = printf "%s. %s" .Title site.Params.description | truncate 156 -}}
+  {{- end -}}
+{{- end -}}
+{{- if and (eq .Type "tutorial") (lt (len $d) 80) (eq (partial "utils/depth.html" .) 3) (gt (len .Sections) 0) -}}
+  {{- $d = printf "%s %d lessons in the %s tutorial, taught as concept, code, operations and impact." (strings.TrimSuffix "." $d | printf "%s.") (len .Sections) (index .Ancestors 0).Title -}}
+{{- end -}}
+{{- return (trim ($d | plainify | replaceRE `\s+` " ") " ") -}}

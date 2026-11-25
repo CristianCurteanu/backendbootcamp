@@ -1,0 +1,5 @@
+{{- $dest := .Destination -}}
+<figure class="my-2">
+  <img src="{{ $dest | safeURL }}" alt="{{ .PlainText }}" loading="lazy" decoding="async">
+  {{- with .Title }}<figcaption class="mt-2 text-sm text-muted">{{ . }}</figcaption>{{ end }}
+</figure>

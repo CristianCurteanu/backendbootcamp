@@ -1,0 +1,6 @@
+{{- $opts := dict "minify" hugo.IsProduction "target" "es2020" "format" "esm" -}}
+{{- $js := resources.Get "js/main.js" | js.Build $opts | resources.Fingerprint "sha256" -}}
+<script type="module" src="{{ $js.RelPermalink }}" integrity="{{ $js.Data.Integrity }}"
+  data-storage="{{ site.Params.progressStorage | default "session" }}"
+  {{ if hugo.IsProduction }}data-ga="{{ site.Config.Services.GoogleAnalytics.ID }}"{{ end }}
+  data-search-index="{{ (site.Home.OutputFormats.Get "SearchIndex").RelPermalink }}"></script>

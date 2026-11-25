@@ -1,0 +1,14 @@
+{{- /* Sitemap without placeholder pages, search, and non-HTML outputs. */ -}}
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {{- range .Site.Pages.ByLastmod.Reverse }}
+  {{- if and (not .Params.sitemap.disable) (not .Params.canonical) (not (partial "utils/thin.html" .)) (ne .Type "search") (or .IsHome .IsPage .IsSection) (not (eq .Kind "taxonomy")) }}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    {{- if not .Lastmod.IsZero }}
+    <lastmod>{{ safeHTML (.Lastmod.Format "2006-01-02T15:04:05-07:00") }}</lastmod>
+    {{- end }}
+  </url>
+  {{- end }}
+  {{- end }}
+</urlset>

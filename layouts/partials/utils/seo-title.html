@@ -1,0 +1,15 @@
+{{- $t := .Title -}}
+{{- if .Params.seoTitle -}}{{- $t = .Params.seoTitle -}}
+{{- else if .IsHome -}}{{- $t = "Backend Bootcamp: free backend engineering tutorials and tools" -}}
+{{- else if eq .Type "tutorial" -}}
+  {{- $c := partial "utils/tutorial-ctx.html" . -}}
+  {{- if and (ge $c.depth 3) $c.tutorial -}}
+    {{- $long := printf "%s | %s | %s" .Title ($c.module.LinkTitle | default $c.module.Title) $c.tutorial.Title -}}
+    {{- $short := printf "%s | %s" .Title $c.tutorial.Title -}}
+    {{- if and (eq $c.depth 4) (le (len $long) 70) -}}{{- $t = $long -}}
+    {{- else if le (len $short) 70 -}}{{- $t = $short -}}
+    {{- else -}}{{- $t = .Title -}}{{- end -}}
+  {{- else -}}{{- $t = printf "%s | Backend Bootcamp" .Title -}}{{- end -}}
+{{- else -}}{{- $t = printf "%s | Backend Bootcamp" .Title -}}
+{{- end -}}
+{{- return $t -}}

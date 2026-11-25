@@ -1,0 +1,9 @@
+{{- /* "On this page" - generated client-side from h2/h3 for accuracy with parts; falls back to Hugo's TOC. */ -}}
+{{- if .TableOfContents }}
+<nav aria-label="On this page" class="flex flex-col" data-toc>
+  <span class="eyebrow pb-2 text-[11px]">On this page</span>
+  <div class="[&_ul]:m-0 [&_ul]:list-none [&_ul]:p-0 [&_ul_ul]:pl-3 [&_a]:block [&_a]:min-h-11 [&_a]:py-[11px] [&_a]:border-t [&_a]:border-line-soft [&_a]:text-[15px] [&_a]:leading-tight [&_a]:text-ink [&_a]:no-underline [&_a:hover]:text-accent-text" data-toc-list>
+    {{ .TableOfContents }}
+  </div>
+</nav>
+{{- end }}

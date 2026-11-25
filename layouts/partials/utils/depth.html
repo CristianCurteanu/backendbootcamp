@@ -1,0 +1,6 @@
+{{- /* Depth of a tutorial page below content/tutorials: 0 map, 1 category, 2 tutorial, 3 module, 4 lesson. */ -}}
+{{- $d := 0 -}}
+{{- with .File -}}
+  {{- $d = sub (len (split (trim .Dir "/") "/")) 1 -}}
+{{- end -}}
+{{- return $d -}}

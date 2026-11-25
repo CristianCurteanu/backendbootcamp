@@ -1,0 +1,9 @@
+{{- /* Visible breadcrumb, mirrors the BreadcrumbList JSON-LD. */ -}}
+{{- $items := partial "utils/crumbs.html" . -}}
+<nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-x-2.5 gap-y-1.5 text-sm text-muted">
+  {{- range $i, $c := $items }}
+  {{- if $i }}<span aria-hidden="true">/</span>{{ end }}
+  {{- if eq (add $i 1) (len $items) }}<span class="font-semibold text-ink" aria-current="page">{{ $c.name }}</span>
+  {{- else }}<a href="{{ $c.url }}" class="text-muted hover:text-ink">{{ $c.name }}</a>{{ end }}
+  {{- end }}
+</nav>

@@ -1,0 +1,21 @@
+{{- $p := .page -}}{{- $c := .ctx -}}
+{{- $nav := partial "utils/lesson-nav.html" $p -}}
+{{- $prev := false -}}{{- $next := false -}}
+{{- with $nav.prev }}{{ $prev = dict "title" (partial "utils/lesson-label.html" .) "url" .RelPermalink "kicker" "Previous module" }}{{ end -}}
+{{- with $nav.next }}{{ $next = dict "title" (partial "utils/lesson-label.html" .) "url" .RelPermalink "kicker" "Next module" }}{{ end -}}
+<div class="wrap flex flex-wrap items-start gap-10 pb-28 pt-8">
+  {{ partial "tutorial/tree.html" (dict "ctx" $c "page" $p) }}
+  <article class="flex min-w-0 max-w-[780px] flex-[999_1_560px] flex-col gap-8">
+    <header class="flex flex-col gap-4">
+      {{ partial "components/breadcrumb.html" $p }}
+      <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">Module {{ partial "utils/lesson-number.html" $p }} · {{ $c.tutorial.Params.level | default "Beginner" }} · {{ len $p.Sections }} lessons</p>
+      <h1 class="display text-[clamp(38px,5vw,60px)] leading-[1.02] tracking-[-0.035em]">{{ $p.Title }}</h1>
+    </header>
+    <div class="prose-bb">{{ $p.Content }}</div>
+    {{ partial "components/pager.html" (dict "label" "Module navigation" "prev" $prev "next" $next) }}
+  </article>
+  <aside class="flex max-w-full flex-[0_0_208px] flex-col gap-6" aria-label="Module details" data-no-print>
+    {{ partial "components/toc.html" $p }}
+    <div class="panel p-4 text-sm text-ink2" data-module-summary data-lessons="{{ len $p.Sections }}"><strong class="block text-ink"><span data-module-done>0</span> of {{ len $p.Sections }} lessons done</strong>Saved in this browser session.</div>
+  </aside>
+</div>

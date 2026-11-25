@@ -1,0 +1,19 @@
+{{ define "main" }}
+{{- $thin := partial "utils/thin.html" . -}}
+<div class="wrap pb-6 pt-12">
+  {{ partial "components/breadcrumb.html" . }}
+  <header class="mt-8 flex max-w-[860px] flex-col gap-5">
+    <h1 class="display text-[clamp(40px,5.6vw,72px)] leading-[1] tracking-[-0.035em]">{{ .Title }}</h1>
+    {{- with .Description }}<p class="max-w-[680px] text-xl text-ink2">{{ . }}</p>{{ end }}
+  </header>
+</div>
+<div class="wrap pb-24 pt-6">
+  <div class="prose-bb max-w-[860px]">{{ .Content }}</div>
+  {{- if and (not .Content) .Pages }}
+  <ul class="mt-6 grid grid-cols-[repeat(auto-fit,minmax(min(280px,100%),1fr))] gap-4">
+    {{- range .Pages.ByWeight }}<li><a href="{{ .RelPermalink }}" class="lift flex min-h-[96px] flex-col justify-center gap-1 rounded-xl border border-line bg-panel px-5 py-4 text-ink no-underline"><strong>{{ .LinkTitle | default .Title }}</strong><span class="text-sm text-muted">{{ .Description }}</span></a></li>{{ end }}
+  </ul>
+  {{- end }}
+  {{ partial "components/faq.html" .Params.faq }}
+</div>
+{{ end }}

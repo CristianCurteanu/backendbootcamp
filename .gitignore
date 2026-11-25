@@ -4,3 +4,5 @@ scripts
 resources
 .claude
 .drafts
+.playwright-mcp
+shot-*.png

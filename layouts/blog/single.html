@@ -1,0 +1,72 @@
+{{ define "main" }}
+{{- $cat := index (.Params.categories | default (slice "Engineering")) 0 -}}
+{{- $tones := dict "principles" "part-concept" "techniques" "part-code" "tools" "part-ops" "mindsets" "part-impact" -}}
+{{- $tone := index $tones (lower $cat) | default "part-concept" -}}
+{{- $siblings := (where site.RegularPages "Type" "blog").ByDate -}}
+<article itemscope itemtype="https://schema.org/BlogPosting">
+  <header class="mx-auto flex max-w-[920px] flex-col gap-5 px-5 pt-12 sm:px-8 sm:pt-14">
+    {{ partial "components/breadcrumb.html" . }}
+    <h1 itemprop="headline" class="display text-[clamp(38px,6vw,76px)] leading-[0.98] tracking-[-0.035em]">{{ .Title }}</h1>
+    {{- with .Description }}<p itemprop="description" class="text-[22px] leading-[1.5] text-ink2">{{ . }}</p>{{ end }}
+    <div class="flex flex-wrap items-center gap-x-6 gap-y-3.5 border-y border-line py-[18px]">
+      <div class="flex items-center gap-3">
+        <span aria-hidden="true" class="part-concept on-part grid size-11 place-items-center rounded-full border-[1.5px] border-ink font-mono text-[13px] font-medium">CC</span>
+        <div class="flex flex-col"><strong class="text-[15px]" itemprop="author">{{ site.Params.author }}</strong><span class="text-[13px] text-muted">Backend Bootcamp</span></div>
+      </div>
+      <time class="text-sm text-ink2" itemprop="datePublished" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+      {{- if ne (.Lastmod.Format "2006-01-02") (.Date.Format "2006-01-02") }}<span class="text-sm text-ink2">Updated <time itemprop="dateModified" datetime="{{ .Lastmod.Format "2006-01-02" }}">{{ .Lastmod.Format "Jan 2, 2006" }}</time></span>{{ end }}
+      <span class="text-sm text-ink2">{{ .ReadingTime }} min read</span>
+      <span class="pill {{ $tone }}">{{ $cat }}</span>
+    </div>
+  </header>
+
+  {{- with .Params.banner }}
+  <div class="mx-auto mt-10 max-w-[1120px] px-5 sm:px-8">
+    <div aria-hidden="true" class="{{ $tone }} flex min-h-[300px] flex-wrap items-center justify-center gap-5 rounded-[18px] border-[1.5px] border-ink p-8" style="background-image:repeating-linear-gradient(135deg,rgba(22,24,29,.12) 0,rgba(22,24,29,.12) 2px,transparent 2px,transparent 16px)">
+      {{- range . }}<span class="rounded-xl px-5 py-3.5 font-mono text-[clamp(18px,3vw,36px)] {{ if .dark }}bg-[#14161a] text-[#ff9a6a]{{ else }}border-[1.5px] border-[#16181d] bg-[#fbfaf6] text-[#16181d]{{ end }}">{{ .text }}</span>{{ end }}
+    </div>
+  </div>
+  {{- end }}
+
+  <div class="mx-auto flex max-w-[1120px] flex-wrap items-start justify-center gap-14 px-5 pt-14 sm:px-8">
+    <div class="min-w-0 max-w-[720px] flex-[999_1_520px]">
+      <div class="prose-bb" itemprop="articleBody" data-post-body>{{ .Content }}</div>
+      {{- with .Params.tags }}
+      <ul class="mt-12 flex flex-wrap gap-2 border-t border-line pt-4" aria-label="Tags">
+        {{- range . }}<li><a class="tag" href="{{ (site.GetPage (printf "/tags/%s" (. | urlize))).RelPermalink }}">{{ . }}</a></li>{{ end }}
+      </ul>
+      {{- end }}
+    </div>
+    <aside aria-label="In this post" class="flex max-w-full flex-[0_0_216px] flex-col gap-6 lg:sticky lg:top-6" data-no-print>
+      {{ partial "components/toc.html" . }}
+      <div class="flex flex-col gap-2">
+        <button type="button" data-copy-link class="btn btn-ghost">Copy link</button>
+        <button type="button" data-share data-title="{{ .Title }}" class="btn btn-ghost">Share this post</button>
+      </div>
+    </aside>
+  </div>
+
+  <section class="mx-auto flex max-w-[920px] flex-col gap-7 px-5 pt-16 sm:px-8" aria-label="About the author">
+    <div class="flex flex-wrap items-center gap-[18px] rounded-[14px] bg-chip p-6">
+      <span aria-hidden="true" class="part-concept on-part grid size-16 place-items-center rounded-full border-[1.5px] border-ink font-mono text-base font-medium">CC</span>
+      <div class="flex flex-[1_1_280px] flex-col"><strong class="text-lg">{{ site.Params.author }}</strong><span class="text-[15px] text-ink2">Backend engineer. Writes Backend Bootcamp, a tutorial site about how backend systems are built and run. <a href="/about/" class="text-ink underline underline-offset-2">More about the author</a>.</span></div>
+    </div>
+    {{ partial "components/faq.html" .Params.faq }}
+    {{- $i := 0 }}{{- $prev := false }}{{- $next := false }}
+    {{- range $k, $p := $siblings }}{{ if eq $p.RelPermalink $.RelPermalink }}
+      {{- if gt $k 0 }}{{ $prev = dict "title" (index $siblings (sub $k 1)).Title "url" (index $siblings (sub $k 1)).RelPermalink "kicker" "Older" }}{{ end }}
+      {{- if lt (add $k 1) (len $siblings) }}{{ $next = dict "title" (index $siblings (add $k 1)).Title "url" (index $siblings (add $k 1)).RelPermalink "kicker" "Newer" }}{{ end }}
+    {{- end }}{{ end }}
+    {{ partial "components/pager.html" (dict "label" "More posts" "prev" $prev "next" $next) }}
+  </section>
+
+  {{- $related := site.RegularPages.Related . | first 3 }}
+  {{- if $related }}
+  <section class="wrap pt-20" aria-labelledby="related-title">
+    <h2 id="related-title" class="display mb-6 text-[32px]">Keep reading</h2>
+    <div class="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] gap-6">{{ range $related }}{{ partial "components/post-card.html" (dict "page" .) }}{{ end }}</div>
+  </section>
+  {{- end }}
+</article>
+{{ partial "components/subscribe.html" (dict) }}
+{{ end }}

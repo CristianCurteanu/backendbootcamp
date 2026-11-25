@@ -1,0 +1,9 @@
+{{- /* Params: prev, next  (each {title, url, kicker}) */ -}}
+<nav aria-label="{{ .label | default "Page navigation" }}" class="flex flex-wrap gap-3 border-t-2 border-ink pt-6" data-no-print>
+  {{- with .prev }}
+  <a href="{{ .url }}" rel="prev" class="flex flex-[1_1_240px] flex-col gap-0.5 rounded-xl border border-line-strong px-5 py-4 text-ink no-underline hover:bg-chip"><span class="text-[13px] text-muted">{{ .kicker | default "Previous" }}</span><strong>← {{ .title }}</strong></a>
+  {{- else }}<span class="flex-[1_1_240px]"></span>{{ end }}
+  {{- with .next }}
+  <a href="{{ .url }}" rel="next" class="flex flex-[1_1_240px] flex-col gap-0.5 rounded-xl bg-ink px-5 py-4 text-right text-paper no-underline"><span class="text-[13px] opacity-70">{{ .kicker | default "Next" }}</span><strong>{{ .title }} →</strong></a>
+  {{- end }}
+</nav>

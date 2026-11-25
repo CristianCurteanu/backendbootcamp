@@ -1,0 +1,17 @@
+{{- /* Command-palette search. Opened with Ctrl/Cmd K, "/" or the header field; progressive enhancement of /search/. */ -}}
+<dialog id="search-dialog" aria-labelledby="search-dialog-title" class="m-0 mx-auto mt-[8vh] w-[min(720px,calc(100%-2rem))] max-h-[80vh] overflow-hidden rounded-2xl border-[1.5px] border-ink bg-paper p-0 text-ink shadow-[8px_8px_0_var(--shadow)] backdrop:bg-black/50" data-no-print>
+  <form method="dialog" class="flex flex-col" data-search-form>
+    <h2 id="search-dialog-title" class="sr-only">Search the bootcamp</h2>
+    <div class="flex items-center gap-3 border-b border-line px-4">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <label for="search-dialog-input" class="sr-only">Search tutorials, lessons and posts</label>
+      <input id="search-dialog-input" type="search" autocomplete="off" spellcheck="false" placeholder="Search tutorials, lessons and posts" class="min-h-14 flex-1 bg-transparent text-lg text-ink outline-none placeholder:text-muted" data-search-input role="combobox" aria-expanded="true" aria-controls="search-dialog-results" aria-autocomplete="list">
+      <button type="button" class="btn btn-ghost" data-search-close>Esc</button>
+    </div>
+    <div id="search-dialog-results" role="listbox" aria-label="Search results" class="max-h-[56vh] overflow-y-auto p-2" data-search-results></div>
+    <div class="flex flex-wrap items-center justify-between gap-2 border-t border-line px-4 py-2.5 text-[13px] text-muted">
+      <span>↑ ↓ to move · Enter to open · Esc to close</span>
+      <a href="/search/" data-search-all class="font-semibold text-ink">See all results</a>
+    </div>
+  </form>
+</dialog>

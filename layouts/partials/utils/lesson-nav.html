@@ -1,0 +1,16 @@
+{{- /* Previous / next lesson (crossing module boundaries) or module for a page inside a tutorial. */ -}}
+{{- $c := partial "utils/tutorial-ctx.html" . -}}
+{{- $flat := slice -}}
+{{- range $c.tutorial.Sections.ByWeight -}}
+  {{- if eq $c.depth 3 -}}{{- $flat = $flat | append . -}}
+  {{- else -}}{{- range .Sections.ByWeight -}}{{- $flat = $flat | append . -}}{{- end -}}{{- end -}}
+{{- end -}}
+{{- $self := . -}}
+{{- $out := dict -}}
+{{- range $i, $p := $flat -}}
+  {{- if eq $p.RelPermalink $self.RelPermalink -}}
+    {{- if gt $i 0 -}}{{- $out = merge $out (dict "prev" (index $flat (sub $i 1))) -}}{{- end -}}
+    {{- if lt (add $i 1) (len $flat) -}}{{- $out = merge $out (dict "next" (index $flat (add $i 1))) -}}{{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

@@ -1,0 +1,26 @@
+# {{ site.Title }}
+
+> {{ site.Params.description }}
+
+Backend Bootcamp is a free tutorial site by {{ site.Params.author }}. Every tutorial is taught in four parts: the concept (why), the code (how), the operations (run) and the impact (measured result). All pages are public, free and available as clean Markdown by appending `index.md` to any page URL.
+
+## Learning tracks
+{{ range (where site.Pages "Type" "tutorial") }}{{ if eq (partial "utils/depth.html" .) 2 -}}
+- [{{ .Title }}]({{ .Permalink }}): {{ partial "utils/description.html" . }}
+{{ end }}{{ end }}
+## Modules
+{{ range (where site.Pages "Type" "tutorial") }}{{ if eq (partial "utils/depth.html" .) 3 -}}
+- [{{ .Title }}]({{ .Permalink }}): {{ partial "utils/description.html" . | truncate 140 }}
+{{ end }}{{ end }}
+## Blog
+{{ range (where site.Pages "Type" "blog") }}{{ if .IsPage -}}
+- [{{ .Title }}]({{ .Permalink }}): {{ partial "utils/description.html" . }}
+{{ end }}{{ end }}
+## Free developer tools
+{{ range (where site.Pages "Section" "tools") }}{{ if and .IsSection (not (partial "utils/thin.html" .)) -}}
+- [{{ .Title }}]({{ .Permalink }}): {{ partial "utils/description.html" . | truncate 140 }}
+{{ end }}{{ end }}
+## Optional
+- [Full text of every lesson]({{ "llms-full.txt" | absURL }})
+- [About the author]({{ "about/" | absURL }})
+- [Sitemap]({{ "sitemap.xml" | absURL }})

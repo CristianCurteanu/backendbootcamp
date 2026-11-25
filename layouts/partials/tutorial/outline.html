@@ -1,0 +1,100 @@
+{{- $p := .page -}}
+{{- $mods := $p.Sections.ByWeight -}}
+{{- $lessons := 0 -}}{{- $mins := 0 -}}
+{{- range $mods }}{{ range .Sections }}{{ $lessons = add $lessons 1 }}{{ $mins = add $mins .ReadingTime }}{{ end }}{{ end -}}
+{{- $hours := div (add $mins 30) 60 -}}
+{{- $first := "" -}}
+{{- with index $mods 0 }}{{ with index .Sections.ByWeight 0 }}{{ $first = .RelPermalink }}{{ end }}{{ end -}}
+<div class="wrap pt-7">{{ partial "components/breadcrumb.html" $p }}</div>
+
+<section class="wrap grid grid-cols-[repeat(auto-fit,minmax(min(480px,100%),1fr))] items-start gap-14 pb-14 pt-9">
+  <div class="flex flex-col gap-6">
+    <div class="flex flex-wrap items-center gap-2.5">
+      <span class="pill part-code">{{ $p.Params.level | default "Beginner" }}</span>
+      <span class="eyebrow">Tutorial · Updated {{ $p.Lastmod.Format "Jan 2006" }}</span>
+    </div>
+    <h1 class="display text-[clamp(44px,6vw,80px)] leading-[0.98] tracking-[-0.035em]">{{ $p.Title }}</h1>
+    <p class="max-w-[620px] text-xl text-ink2">{{ $p.Params.lead | default $p.Description }}</p>
+    <dl class="grid max-w-[620px] grid-cols-[repeat(auto-fit,minmax(min(130px,100%),1fr))] gap-4 border-y border-line py-5">
+      {{- range (slice (dict "k" "Level" "v" ($p.Params.level | default "Beginner")) (dict "k" "Modules" "v" (len $mods)) (dict "k" "Lessons" "v" $lessons) (dict "k" "Total time" "v" (printf "About %d hours" (int (math.Max 1 $hours))))) }}
+      <div class="flex flex-col gap-0.5"><dt class="eyebrow text-[11px]">{{ .k }}</dt><dd class="text-[17px] font-semibold">{{ .v }}</dd></div>
+      {{- end }}
+    </dl>
+    <div class="flex flex-wrap gap-3">
+      <a href="{{ $first }}" data-resume-cta data-tutorial="{{ $p.RelPermalink }}" data-start="{{ $first }}" class="btn btn-primary min-h-[52px] px-[26px]">Start from module 1</a>
+      <a href="#outline" class="btn btn-outline min-h-[52px] px-[26px]">See the outline</a>
+    </div>
+  </div>
+  {{ partial "components/framework-parts.html" (dict "title" "How every lesson is built") }}
+</section>
+
+<div class="wrap flex flex-wrap items-start gap-12 pb-28 pt-6">
+  <div class="min-w-0 flex-[999_1_600px]">
+    <div class="mb-5 flex flex-wrap items-center justify-between gap-3 border-b-2 border-ink pb-4">
+      <h2 id="outline" class="display text-4xl tracking-[-0.03em]">Outline</h2>
+      <button type="button" data-expand-all aria-pressed="false" class="btn btn-ghost">Expand all modules</button>
+    </div>
+    <ol class="flex flex-col gap-3" data-outline data-tutorial="{{ $p.RelPermalink }}">
+      {{- range $i, $m := $mods }}
+      {{- $ls := $m.Sections.ByWeight }}
+      {{- $mmins := 0 }}{{ range $ls }}{{ $mmins = add $mmins .ReadingTime }}{{ end }}
+      <li class="overflow-hidden rounded-[14px] border border-line" data-module data-module-total="{{ len $ls }}">
+        <details class="group" {{ if eq $i 0 }}open{{ end }}>
+          <summary class="flex cursor-pointer list-none flex-wrap items-center gap-x-5 gap-y-3 px-6 py-5 [&::-webkit-details-marker]:hidden">
+            <span class="grid size-10 shrink-0 place-items-center rounded-full border-[1.5px] border-ink bg-panel font-mono text-sm font-medium data-[state=done]:bg-ink data-[state=done]:text-paper data-[state=current]:bg-accent" data-module-badge data-state="todo">
+              <span data-badge-n>{{ add $i 1 }}</span>
+              <svg data-badge-check class="hidden" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Completed"><path d="M5 12l5 5 9-10"/></svg>
+            </span>
+            <div class="flex min-w-0 flex-[1_1_320px] flex-col gap-0.5">
+              <h3 class="text-xl font-semibold tracking-[-0.01em]"><a href="{{ $m.RelPermalink }}" class="text-ink no-underline hover:underline">{{ $m.LinkTitle | default $m.Title }}</a></h3>
+              <p class="text-[15px] text-ink2">{{ $m.Description | default ($m.Plain | replaceRE `\s+` " " | truncate 120) }}</p>
+            </div>
+            <span class="font-mono text-[13px] text-muted"><span data-module-count>0</span>/{{ len $ls }} done · {{ len $ls }} lessons · {{ $mmins }} min</span>
+            <svg class="shrink-0 transition-transform group-open:rotate-180" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+          </summary>
+          <ol class="flex flex-col px-6 pb-3">
+            {{- range $ls }}
+            {{- $n := partial "utils/lesson-number.html" . }}
+            <li>
+              <a href="{{ .RelPermalink }}" data-lesson="{{ .RelPermalink }}" class="flex min-h-16 flex-wrap items-center gap-x-4 gap-y-2 rounded-lg border-t border-line-soft px-3.5 py-2.5 text-ink no-underline hover:bg-chip">
+                <span class="min-w-[30px] font-mono text-[13px] text-muted">{{ $n }}</span>
+                <span class="flex-[1_1_260px] text-base font-medium">{{ .LinkTitle | default .Title }}</span>
+                {{ partial "components/part-squares.html" (dict) }}
+                <span class="min-w-[84px] text-right text-[13px] text-muted"><span data-lesson-status>{{ .ReadingTime }} min</span></span>
+              </a>
+            </li>
+            {{- end }}
+          </ol>
+        </details>
+      </li>
+      {{- end }}
+    </ol>
+    {{- with $p.Content }}<div class="prose-bb mt-16 max-w-[760px]">{{ . }}</div>{{ end }}
+    {{ partial "components/faq.html" $p.Params.faq }}
+  </div>
+
+  <aside aria-label="Tutorial details" class="flex max-w-full flex-[0_0_320px] flex-col gap-5 lg:sticky lg:top-6">
+    <section class="panel flex flex-col gap-3.5 p-[22px]" aria-labelledby="progress-title" data-progress-card data-tutorial="{{ $p.RelPermalink }}" data-total-lessons="{{ $lessons }}" data-total-modules="{{ len $mods }}">
+      <h2 id="progress-title" class="eyebrow">Your progress</h2>
+      <p class="text-[17px]"><strong class="font-display text-[32px] font-extrabold tracking-[-0.02em]"><span data-progress-done>0</span> of {{ len $mods }}</strong> modules complete</p>
+      <div class="meter" role="progressbar" aria-valuemin="0" aria-valuemax="{{ $lessons }}" aria-valuenow="0" aria-label="Lessons completed" data-progress-bar><span></span></div>
+      <p class="text-sm text-muted" data-progress-note>Progress is saved in this browser session.</p>
+      <a href="{{ $first }}" data-resume-cta data-tutorial="{{ $p.RelPermalink }}" data-start="{{ $first }}" class="btn btn-accent min-h-12">Start lesson 1.1</a>
+      <button type="button" data-progress-reset class="btn btn-ghost" hidden>Reset progress</button>
+    </section>
+    {{- with $p.Params.builds }}
+    <section class="panel flex flex-col gap-2.5 p-[22px]">
+      <h2 class="eyebrow">You will build</h2>
+      {{- range . }}<div class="flex flex-col border-t border-line-soft py-2.5"><strong class="text-base">{{ .name }}</strong><span class="text-sm text-ink2">{{ .sub }}</span></div>{{ end }}
+    </section>
+    {{- end }}
+    <section class="panel flex flex-col gap-1 p-[22px]">
+      <h2 class="eyebrow mb-1.5">Where it fits</h2>
+      <div class="flex justify-between border-t border-line-soft py-2.5 text-[15px]"><span class="text-ink2">Prerequisites</span><strong>{{ $p.Params.prerequisites | default "None" }}</strong></div>
+      {{- $sibs := $p.Parent.Sections.ByWeight }}
+      {{- range $sibs }}{{ if and (ne .RelPermalink $p.RelPermalink) (gt .Weight $p.Weight) }}
+      <a href="{{ .RelPermalink }}" class="flex flex-col border-t border-line-soft pt-3 text-ink no-underline"><span class="text-[13px] text-muted">Next tutorial</span><strong class="text-base">{{ .Title }} →</strong></a>
+      {{- break }}{{ end }}{{ end }}
+    </section>
+  </aside>
+</div>

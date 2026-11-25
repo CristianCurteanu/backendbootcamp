@@ -1,0 +1,25 @@
+{{- $p := .page -}}
+{{- $tutorials := $p.Sections.ByWeight -}}
+{{- $nLessons := 0 -}}{{- $nMods := 0 -}}
+{{- range $tutorials }}{{ range .Sections }}{{ $nMods = add $nMods 1 }}{{ $nLessons = add $nLessons (len .Sections) }}{{ end }}{{ end -}}
+<div class="wrap pb-6 pt-10">
+  {{ partial "components/breadcrumb.html" $p }}
+  <header class="mt-8 flex max-w-[820px] flex-col gap-5">
+    <p class="eyebrow text-accent-text">Programming languages</p>
+    <h1 class="display text-[clamp(44px,6vw,80px)] leading-[0.98] tracking-[-0.035em]">{{ $p.LinkTitle | default $p.Title }}</h1>
+    <p class="text-xl text-ink2">{{ $p.Params.lead | default $p.Description }}</p>
+    <dl class="flex flex-wrap gap-x-10 gap-y-3 border-y border-line py-5">
+      {{- range (slice (dict "n" (len $tutorials) "l" "tutorials") (dict "n" $nMods "l" "modules") (dict "n" $nLessons "l" "lessons")) }}
+      <div class="flex items-baseline gap-2"><dd class="font-display text-4xl font-extrabold tracking-[-0.02em]">{{ .n }}</dd><dt class="text-[15px] text-muted">{{ .l }}</dt></div>
+      {{- end }}
+    </dl>
+  </header>
+</div>
+<section class="wrap pb-6 pt-8" aria-labelledby="tutorials-title">
+  <h2 id="tutorials-title" class="sr-only">Tutorials in this track</h2>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(480px,100%),1fr))] gap-5">
+    {{- range $tutorials }}{{ partial "components/tutorial-card.html" (dict "page" . "cta" "Open the outline") }}{{ end }}
+  </div>
+</section>
+{{- with $p.Content }}<div class="wrap pt-12"><div class="prose-bb max-w-[760px]">{{ . }}</div></div>{{ end }}
+<div class="wrap max-w-[920px] pb-6">{{ partial "components/faq.html" $p.Params.faq }}</div>

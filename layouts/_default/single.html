@@ -1,0 +1,27 @@
+{{ define "main" }}
+<div class="wrap pb-6 pt-12">
+  {{ partial "components/breadcrumb.html" . }}
+  <header class="mt-8 flex max-w-[860px] flex-col gap-5">
+    {{- if partial "utils/thin.html" . }}<span class="pill part-ops on-part self-start">Coming soon</span>{{ end }}
+    <h1 class="display text-[clamp(38px,5vw,64px)] leading-[1.02] tracking-[-0.035em]">{{ .Title }}</h1>
+    {{- with .Description }}<p class="max-w-[720px] text-xl text-ink2">{{ . }}</p>{{ end }}
+  </header>
+</div>
+<div class="wrap flex flex-wrap items-start gap-12 pb-24 pt-6">
+  <div class="min-w-0 max-w-[780px] flex-[999_1_520px]">
+    <div class="prose-bb">{{ .Content }}</div>
+    {{ partial "components/faq.html" .Params.faq }}
+    {{- if .Parent }}
+    {{- $sibs := where .Parent.Pages "RelPermalink" "ne" .RelPermalink }}
+    {{- if $sibs }}
+    <section class="mt-16" aria-labelledby="more-title">
+      <h2 id="more-title" class="display mb-5 text-[28px]">More in {{ .Parent.LinkTitle | default .Parent.Title }}</h2>
+      <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(240px,100%),1fr))] gap-3">
+        {{- range first 6 $sibs.ByWeight }}<li><a href="{{ .RelPermalink }}" class="lift flex min-h-[72px] items-center rounded-xl border border-line bg-panel px-4 py-3 font-semibold text-ink no-underline">{{ .LinkTitle | default .Title }}</a></li>{{ end }}
+      </ul>
+    </section>
+    {{- end }}{{ end }}
+  </div>
+  {{- if .TableOfContents }}<aside aria-label="On this page" class="flex max-w-full flex-[0_0_216px] flex-col gap-6 lg:sticky lg:top-6" data-no-print>{{ partial "components/toc.html" . }}</aside>{{ end }}
+</div>
+{{ end }}

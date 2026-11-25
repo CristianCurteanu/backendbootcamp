@@ -1,0 +1,53 @@
+{{ define "main" }}
+{{- $posts := .RegularPages.ByDate.Reverse -}}
+{{- $featured := index $posts 0 -}}
+<div class="wrap pb-6 pt-14">
+  <header class="flex max-w-[860px] flex-col gap-5">
+    <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">Blog</p>
+    <h1 class="display text-[clamp(40px,5.6vw,72px)] leading-[1] tracking-[-0.035em]">Field notes from the production end of the map.</h1>
+    <p class="max-w-[620px] text-xl text-ink2">Principles, tools, techniques and mindsets for engineers who run what they build.</p>
+  </header>
+</div>
+
+{{- with $featured }}
+<section class="wrap pt-10" aria-label="Featured post">
+  <a href="{{ .RelPermalink }}" class="lift offset-card grid grid-cols-[repeat(auto-fit,minmax(min(380px,100%),1fr))] overflow-hidden text-ink no-underline">
+    <div class="part-concept flex min-h-[260px] flex-wrap items-center justify-center gap-4 p-8" aria-hidden="true" style="background-image:repeating-linear-gradient(135deg,rgba(22,24,29,.12) 0,rgba(22,24,29,.12) 2px,transparent 2px,transparent 16px)">
+      {{- range .Params.banner }}<span class="rounded-xl px-4 py-2.5 font-mono text-lg {{ if .dark }}bg-[#14161a] text-[#ff9a6a]{{ else }}border-[1.5px] border-[#16181d] bg-[#fbfaf6] text-[#16181d]{{ end }}">{{ .text }}</span>{{ end }}
+    </div>
+    <div class="flex flex-col justify-center gap-3.5 p-8">
+      <span class="eyebrow">Featured · {{ index (.Params.categories | default (slice "Engineering")) 0 }}</span>
+      <h2 class="display text-[clamp(28px,3.4vw,40px)]">{{ .Title }}</h2>
+      <p class="text-[17px] text-ink2">{{ .Description }}</p>
+      <span class="text-sm text-muted">{{ .Date.Format "Jan 2, 2006" }} · {{ .ReadingTime }} min read</span>
+    </div>
+  </a>
+</section>
+{{- end }}
+
+<section class="wrap pt-20" aria-labelledby="latest-title" data-post-filter>
+  <div class="mb-8 flex flex-wrap items-end justify-between gap-4">
+    <h2 id="latest-title" class="display text-[clamp(30px,4vw,40px)]">Latest posts</h2>
+    <div class="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
+      <button type="button" class="tag" data-filter="all" aria-pressed="true">All</button>
+      {{- range $name, $pages := site.Taxonomies.categories }}<button type="button" class="tag" data-filter="{{ $name | urlize }}" aria-pressed="false">{{ $name | title }}</button>{{ end }}
+    </div>
+  </div>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] gap-6">
+    {{- range $posts }}
+    <div data-cat="{{ range .Params.categories }}{{ . | urlize }} {{ end }}">{{ partial "components/post-card.html" (dict "page" .) }}</div>
+    {{- end }}
+  </div>
+  <p class="mt-10 hidden text-ink2" data-empty>No posts in this category yet.</p>
+</section>
+
+{{- with site.Taxonomies.tags }}
+<section class="wrap pt-20" aria-labelledby="tags-title">
+  <h2 id="tags-title" class="display mb-5 text-[clamp(26px,3.4vw,32px)]">Browse by tag</h2>
+  <ul class="flex flex-wrap gap-2">
+    {{- range .Alphabetical }}<li><a class="tag" href="{{ .Page.RelPermalink }}">{{ .Page.Title | lower }} <span class="ml-1.5 text-muted">{{ .Count }}</span></a></li>{{ end }}
+  </ul>
+</section>
+{{- end }}
+{{ partial "components/subscribe.html" (dict "title" "Get the next post by email.") }}
+{{ end }}

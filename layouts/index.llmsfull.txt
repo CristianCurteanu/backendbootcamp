@@ -1,0 +1,12 @@
+# {{ site.Title }}: full text
+
+> {{ site.Params.description }}
+{{ range (where site.Pages "Type" "in" (slice "tutorial" "blog")) }}{{ if and (not (partial "utils/thin.html" .)) (or .IsPage (gt .WordCount 80)) }}
+
+---
+
+## {{ .Title }}
+
+Source: {{ .Permalink }}
+{{ .Plain | replaceRE `\n{3,}` "\n\n" }}
+{{ end }}{{ end }}

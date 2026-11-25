@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="wrap pb-24 pt-12">
+  {{ partial "components/breadcrumb.html" . }}
+  <header class="mb-10 mt-8 flex max-w-[860px] flex-col gap-4">
+    <h1 class="display text-[clamp(38px,5vw,64px)] leading-[1.02]">{{ .Title }}</h1>
+    <p class="text-xl text-ink2">Every {{ .Data.Singular }} used across the blog.</p>
+  </header>
+  <ul class="flex flex-wrap gap-2">
+    {{- range .Data.Terms.Alphabetical }}<li><a class="tag" href="{{ .Page.RelPermalink }}">{{ .Page.Title | lower }} <span class="ml-1.5 text-muted">{{ .Count }}</span></a></li>{{ end }}
+  </ul>
+</div>
+{{ end }}

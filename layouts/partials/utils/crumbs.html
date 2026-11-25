@@ -1,0 +1,15 @@
+{{- /* Ancestor trail from Home to the page itself. */ -}}
+{{- $items := slice -}}
+{{- range .Ancestors.Reverse -}}
+  {{- if .IsHome -}}
+    {{- $items = $items | append (dict "name" "Home" "url" .RelPermalink) -}}
+  {{- else if and (eq .Type "tutorial") (eq (partial "utils/depth.html" .) 0) -}}
+    {{- $items = $items | append (dict "name" "Tutorials" "url" .RelPermalink) -}}
+  {{- else -}}
+    {{- $items = $items | append (dict "name" (.LinkTitle | default .Title) "url" .RelPermalink) -}}
+  {{- end -}}
+{{- end -}}
+{{- if not .IsHome -}}
+  {{- $items = $items | append (dict "name" (.LinkTitle | default .Title) "url" .RelPermalink) -}}
+{{- end -}}
+{{- return $items -}}

@@ -1,0 +1,10 @@
+{{- /* "8.2" for a lesson, "8" for a module, from numeric directory prefixes. */ -}}
+{{- $d := partial "utils/depth.html" . -}}
+{{- $own := partial "utils/lesson-prefix.html" . -}}
+{{- $n := "" -}}
+{{- if and (eq $d 3) $own -}}{{- $n = $own -}}
+{{- else if and (eq $d 4) $own -}}
+  {{- $pown := partial "utils/lesson-prefix.html" .Parent -}}
+  {{- if $pown }}{{ $n = printf "%s.%s" $pown $own }}{{ end -}}
+{{- end -}}
+{{- return $n -}}

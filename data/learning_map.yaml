@@ -1,0 +1,62 @@
+# Learning map shown on the home page and /tutorials/.
+# status: live | soon. `url` only for live topics (served from the site root).
+- level: 1
+  label: Beginner
+  title: Foundations
+  blurb: How computers, operating systems and software design actually work.
+  topics:
+    - name: Computer Science Fundamentals
+      sub: Data structures, complexity, memory
+      status: soon
+    - name: Operating Systems
+      sub: Processes, threads, files, I/O
+      status: soon
+    - name: Object-Oriented Design
+      sub: Modeling code that survives change
+      status: soon
+- level: 2
+  label: Junior
+  title: Core stack
+  blurb: Pick a language, a database and a queue. Build real services with them.
+  topics:
+    - name: Python
+      sub: Fundamentals and Standard Library
+      status: live
+      url: /python/
+    - name: Databases
+      sub: PostgreSQL, MySQL, MongoDB, Redis and more
+      status: soon
+    - name: Message Queues
+      sub: Kafka, RabbitMQ, NATS
+      status: soon
+- level: 3
+  label: Intermediate
+  title: Systems
+  blurb: Make services reliable, observable and fast under real traffic.
+  topics:
+    - name: APIs and Authentication
+      sub: REST, gRPC, sessions, tokens
+      status: soon
+    - name: Containers and Deployment
+      sub: Docker, CI/CD, Kubernetes basics
+      status: soon
+    - name: Observability
+      sub: Logs, metrics, traces, alerts
+      status: soon
+- level: 4
+  label: Advanced
+  title: Mastery
+  blurb: Think like the engineer who gets paged and still sleeps well.
+  topics:
+    - name: Principles
+      sub: Trade-offs, consistency, failure modes
+      status: soon
+    - name: Tools
+      sub: Profilers, load testers, tracers
+      status: soon
+    - name: Techniques
+      sub: Sharding, idempotency, backpressure
+      status: soon
+    - name: Mindsets
+      sub: Ownership, design docs, cost awareness
+      status: soon

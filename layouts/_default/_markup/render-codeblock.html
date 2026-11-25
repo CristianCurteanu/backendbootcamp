@@ -1,0 +1,8 @@
+{{- $lang := .Type | default "text" -}}
+{{- $file := .Attributes.filename | default .Attributes.title | default "" -}}
+{{- $label := cond (ne $file "") $file (cond (eq $lang "text") "" $lang) -}}
+{{- $r := transform.HighlightCodeBlock . -}}
+<div class="codebox not-prose" data-codebox>
+  <div class="codebox-bar"><span>{{ $label }}</span><button type="button" class="codebox-copy" data-copy-code aria-label="Copy code{{ with $file }} from {{ . }}{{ end }}">Copy</button></div>
+  {{ $r.Wrapped }}
+</div>

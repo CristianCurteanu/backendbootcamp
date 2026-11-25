@@ -3,8 +3,6 @@ title: 'Free Guides for Backend Engineers'
 linkTitle: 'Guides'
 description: 'Free checklists, templates, and playbooks for backend engineers — SLO design, security, regex, Dockerfile, OpenAPI, data modeling, and AWS cost optimization.'
 weight: 4
-cascade:
-  type: docs
 ---
 
 Free checklists, templates, and playbooks paired with browser-based developer tools.

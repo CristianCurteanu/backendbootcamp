@@ -1,0 +1,128 @@
+{{ define "main" }}
+{{- $posts := slice -}}
+{{- with site.GetPage "/blog" }}{{ $posts = first 3 .RegularPages.ByDate.Reverse }}{{ end }}
+{{- $live := slice -}}
+{{- with site.GetPage "/tutorials/python/python-fundamentals" }}{{ $live = $live | append . }}{{ end }}
+{{- with site.GetPage "/tutorials/python/python-standard-library" }}{{ $live = $live | append . }}{{ end }}
+
+<!-- Hero -->
+<section class="wrap grid grid-cols-[repeat(auto-fit,minmax(min(460px,100%),1fr))] items-center gap-16 pb-8 pt-14 sm:pt-20">
+  <div class="flex flex-col gap-7">
+    <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">Backend engineering · zero to production</p>
+    <h1 class="display text-[clamp(46px,7vw,92px)] leading-[0.98] tracking-[-0.035em]">Build the digital <span class="shadow-[inset_0_-0.22em_0_var(--accent)]">backbone.</span></h1>
+    <p class="max-w-[560px] text-xl text-ink2">Learning maps that carry you from computer-science basics to the principles, tools and mindsets of senior backend engineers. Every tutorial follows the same four parts: why, how, run, impact.</p>
+    <div class="flex flex-wrap gap-3">
+      <a href="/tutorials/" class="btn btn-primary min-h-[52px] px-[26px] text-base">Open the learning map</a>
+      <a href="/python/python-fundamentals/" class="btn btn-outline min-h-[52px] px-[26px] text-base">Start Python Fundamentals</a>
+    </div>
+    <p class="font-mono text-[13px] text-muted">Live now: <a class="underline underline-offset-2" href="/python/python-fundamentals/">Python Fundamentals</a> · <a class="underline underline-offset-2" href="/python/python-standard-library/">Python Standard Library</a></p>
+  </div>
+  {{ partial "components/framework-parts.html" (dict) }}
+</section>
+
+<!-- Resume (filled by JS when the visitor has progress in this session) -->
+<section class="wrap mt-10 hidden" data-resume hidden aria-label="Continue learning">
+  <a href="#" data-resume-link class="offset-card flex flex-wrap items-center justify-between gap-4 p-5 text-ink no-underline">
+    <span class="flex flex-col"><span class="eyebrow">Continue where you left off</span><strong class="font-display text-2xl font-extrabold tracking-[-0.02em]" data-resume-title></strong></span>
+    <span class="btn btn-accent">Resume lesson</span>
+  </a>
+</section>
+
+<!-- Learning map -->
+<section class="wrap pt-28" aria-labelledby="map-title">
+  {{ partial "components/section-head.html" (dict "eyebrow" "The learning map" "id" "map-title" "title" "One map. Four levels. Start where you are." "lead" "Each level builds on the one before. Skip ahead when you already know the ground.") }}
+  {{ partial "components/learning-map.html" . }}
+</section>
+
+<!-- Framework -->
+<section class="mt-28 bg-night text-on-night" aria-labelledby="framework-title">
+  <div class="wrap pb-28 pt-24">
+    <div class="mb-12 flex max-w-[760px] flex-col gap-3.5">
+      <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-[#ff9a6a]">The 4-Part Framework</p>
+      <h2 id="framework-title" class="display text-[clamp(32px,4.4vw,48px)]">Every tutorial answers four questions.</h2>
+      <p class="text-lg text-on-night2">The structure never changes, so you always know where the reasoning, the build, the runbook and the result live. Sample below: caching with Redis.</p>
+    </div>
+    <div class="on-part grid grid-cols-[repeat(auto-fit,minmax(min(270px,100%),1fr))] gap-5">
+      <article class="part-concept flex flex-col gap-3.5 rounded-2xl p-6">
+        <span class="font-mono text-xs uppercase tracking-[0.1em]">01 · The Concept · Why</span>
+        <h3 class="font-display text-[28px] font-extrabold leading-[1.1] tracking-[-0.02em]">A cache trades freshness for speed.</h3>
+        <p class="text-[15px] text-[#2a2d33]">Understand the problem before the tool: what it solves, what it costs, and when to reach for something else.</p>
+        <p class="mt-auto border-t border-[#16181d]/25 pt-3 text-sm">You will compare cache-aside with write-through.</p>
+      </article>
+      <article class="part-code flex flex-col gap-3.5 rounded-2xl p-6">
+        <span class="font-mono text-xs uppercase tracking-[0.1em]">02 · The Code · How</span>
+        <h3 class="font-display text-[28px] font-extrabold leading-[1.1] tracking-[-0.02em]">Build it, line by line.</h3>
+        <div class="chroma"><pre class="overflow-x-auto rounded-[10px] bg-night p-4 font-mono text-[12.5px] leading-[1.65] text-on-night" aria-label="Python cache-aside example"><code><span class="k">def</span> <span class="nf">get_user</span>(uid):
+    hit = cache.<span class="nf">get</span>(uid)
+    <span class="k">if</span> hit: <span class="k">return</span> hit
+    user = db.<span class="nf">fetch</span>(uid)
+    cache.<span class="nf">set</span>(uid, user, ttl=<span class="m">300</span>)
+    <span class="k">return</span> user</code></pre></div>
+        <p class="mt-auto text-[15px] text-[#2a2d33]">Runnable examples you can type, break and extend.</p>
+      </article>
+      <article class="part-ops flex flex-col gap-3.5 rounded-2xl p-6">
+        <span class="font-mono text-xs uppercase tracking-[0.1em]">03 · The Operations · Run</span>
+        <h3 class="font-display text-[28px] font-extrabold leading-[1.1] tracking-[-0.02em]">Run it at 3 a.m.</h3>
+        <p class="text-[15px] text-[#2a2d33]">Configuration, deploys, alerts and a runbook for the day it fails.</p>
+        <div class="mt-auto flex flex-wrap gap-2">
+          {{- range slice "maxmemory-policy" "hit-ratio alert" "failover drill" "rollback steps" }}<span class="rounded-md border border-[#16181d] px-2.5 py-1 font-mono text-xs">{{ . }}</span>{{ end }}
+        </div>
+      </article>
+      <article class="part-impact flex flex-col gap-3.5 rounded-2xl p-6">
+        <span class="font-mono text-xs uppercase tracking-[0.1em]">04 · The Impact · Impact</span>
+        <h3 class="font-display text-[28px] font-extrabold leading-[1.1] tracking-[-0.02em]">Prove it worked.</h3>
+        <dl class="flex flex-col">
+          {{- range (slice (dict "l" "p95 read latency" "v" "184 ms → 9 ms") (dict "l" "Database reads / s" "v" "2,400 → 310") (dict "l" "Cache hit ratio" "v" "0% → 87%")) }}
+          <div class="flex justify-between gap-3 border-t border-[#16181d]/25 py-2 text-sm"><dt>{{ .l }}</dt><dd class="font-mono font-medium">{{ .v }}</dd></div>
+          {{- end }}
+        </dl>
+        <p class="mt-auto text-[13px] text-[#3e2a24]">Sample figures from a local benchmark.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Live now -->
+<section class="wrap pt-28" aria-labelledby="live-title">
+  {{ partial "components/section-head.html" (dict "eyebrow" "Live now" "id" "live-title" "title" "Start with Python.") }}
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(480px,100%),1fr))] gap-5">
+    {{- range $live }}{{ partial "components/tutorial-card.html" (dict "page" . "cta" (cond (eq .Title "Python Fundamentals") "Open the outline" "Browse the sections")) }}{{ end }}
+  </div>
+  <p class="mt-7 text-[15px] text-ink2"><strong>Releasing soon:</strong> Computer Science Fundamentals, Object-Oriented Design, Operating Systems, Databases and Message Queues.</p>
+</section>
+
+<!-- Tools -->
+{{- with site.GetPage "/tools" }}
+<section class="wrap pt-28" aria-labelledby="tools-title">
+  {{ partial "components/section-head.html" (dict "eyebrow" "Free developer tools" "id" "tools-title" "title" "Small tools for daily backend work." "lead" "Browser-based, no signup. Everything runs on your machine." "link" (dict "name" "All tools →" "url" "/tools/")) }}
+  <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(230px,100%),1fr))] gap-3">
+    {{- range .Sections.ByWeight }}
+    <li><a href="{{ .RelPermalink }}" class="lift flex min-h-[88px] flex-col justify-center gap-0.5 rounded-xl border border-line bg-panel px-5 py-3 text-ink no-underline"><strong class="text-base">{{ .LinkTitle | default .Title }}</strong><span class="text-[13px] text-muted">{{ len .Pages }} tools</span></a></li>
+    {{- end }}
+  </ul>
+</section>
+{{- end }}
+
+<!-- Blog -->
+{{- if $posts }}
+<section class="wrap pt-28" aria-labelledby="blog-title">
+  {{ partial "components/section-head.html" (dict "id" "blog-title" "title" "From the blog" "link" (dict "name" "All posts →" "url" "/blog/")) }}
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] gap-6">
+    {{- range $posts }}{{ partial "components/post-card.html" (dict "page" .) }}{{ end }}
+  </div>
+</section>
+{{- end }}
+
+{{- with .Params.faq }}<div class="wrap max-w-[920px]">{{ partial "components/faq.html" . }}</div>{{ end }}
+
+<!-- CTA -->
+<section class="mt-28 bg-accent text-[#16181d]">
+  <div class="wrap flex flex-wrap items-center justify-between gap-8 py-[88px]">
+    <div class="flex max-w-[680px] flex-col gap-3">
+      <h2 class="display text-[clamp(36px,5vw,60px)] leading-[1.02]">Pick a level. Ship something real.</h2>
+      <p class="text-lg">Each tutorial ends with a project and a measured result, not a certificate.</p>
+    </div>
+    <a href="/tutorials/" class="inline-flex min-h-14 items-center rounded-[10px] bg-[#16181d] px-[30px] text-[17px] font-semibold text-[#f5f2eb] no-underline">Open the learning map</a>
+  </div>
+</section>
+{{ end }}

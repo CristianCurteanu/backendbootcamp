@@ -1,0 +1,15 @@
+{{- /* Params: page (a blog post), tone (optional override) */ -}}
+{{- $p := .page -}}
+{{- $cat := index ($p.Params.categories | default (slice "Engineering")) 0 -}}
+{{- $tones := dict "principles" "part-concept" "techniques" "part-code" "tools" "part-ops" "mindsets" "part-impact" -}}
+{{- $tone := index $tones (lower $cat) | default "part-concept" -}}
+<a class="lift flex flex-col overflow-hidden rounded-2xl border border-line bg-panel text-ink no-underline" href="{{ $p.RelPermalink }}">
+  <div class="stripes flex h-[160px] items-end p-4 {{ $tone }}" style="background-image:repeating-linear-gradient(135deg,rgba(22,24,29,.12) 0,rgba(22,24,29,.12) 2px,transparent 2px,transparent 14px)">
+    <span class="rounded-full bg-[#fbfaf6] px-2.5 py-1 font-mono text-xs uppercase tracking-[0.1em] text-[#16181d]">{{ $cat }}</span>
+  </div>
+  <div class="flex flex-1 flex-col gap-2.5 px-6 pb-6 pt-5">
+    <h3 class="font-display text-2xl font-extrabold leading-[1.15] tracking-[-0.02em]">{{ $p.Title }}</h3>
+    <p class="text-[15px] text-ink2">{{ $p.Description | default ($p.Summary | plainify | truncate 140) }}</p>
+    <span class="mt-auto pt-1.5 text-[13px] text-muted"><time datetime="{{ $p.Date.Format "2006-01-02" }}">{{ $p.Date.Format "Jan 2, 2006" }}</time> · {{ $p.ReadingTime }} min read</span>
+  </div>
+</a>

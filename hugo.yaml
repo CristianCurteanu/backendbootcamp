@@ -1,77 +1,174 @@
 baseURL: https://backendbootcamp.online/
 languageCode: en-us
 title: Backend Bootcamp
-theme: hextra
+enableRobotsTXT: true
+enableGitInfo: true
+summaryLength: 35
 
+# The Hextra theme was replaced by first-party layouts in /layouts
+# (partials/components = reusable UI, shortcodes = in-content components).
+# Styling is Tailwind CSS 4 (src/css/tailwind.css -> assets/css/app.css).
 
-module:
-  hugoVersion:
-    extended: true
-    min: "0.134.0"
+pagination:
+  pagerSize: 12
 
-  imports:
-    - path: github.com/imfing/hextra
-    
+taxonomies:
+  tag: tags
+  category: categories
+
+# URL contract: tutorials live in content/tutorials/ but are served from the
+# site root (/python/..., not /tutorials/python/...), so every pre-redesign URL
+# keeps working. Blog posts are served from /blog/<slug>/.
+permalinks:
+  page:
+    tutorials: "/:sections[1:]/:filename/"
+    blog: "/blog/:filename/"
+  section:
+    tutorials: "/:sections[1:]/"
+
+frontmatter:
+  date: [date, ':git', ':fileModTime']
+  lastmod: [lastmod, ':git', date, ':fileModTime']
+
 markup:
-  # allow raw html
   goldmark:
     renderer:
       unsafe: true
-
-  # enable hextra syntax highlight
+    extensions:
+      taskList: true
   highlight:
     noClasses: false
+    lineNos: false
+    guessSyntax: true
+  tableOfContents:
+    startLevel: 2
+    endLevel: 3
+
+mediaTypes:
+  text/markdown:
+    suffixes: ["md"]
+
+outputFormats:
+  SearchIndex:
+    mediaType: application/json
+    baseName: search-index
+    isPlainText: true
+    notAlternative: true
+  LLMS:
+    mediaType: text/plain
+    baseName: llms
+    isPlainText: true
+    notAlternative: true
+  LLMSFull:
+    mediaType: text/plain
+    baseName: llms-full
+    isPlainText: true
+    notAlternative: true
+  Markdown:
+    mediaType: text/markdown
+    baseName: index
+    isPlainText: true
+    rel: alternate
+
+outputs:
+  home: [HTML, RSS, SearchIndex, LLMS, LLMSFull, Markdown]
+  page: [HTML, Markdown]
+  section: [HTML, Markdown]
 
 services:
   googleAnalytics:
     ID: G-4PKQTCFR6V
 
-menu:
+menus:
   main:
+    - name: Tutorials
+      url: /tutorials/
+      weight: 1
     - name: Tools
-      pageRef: /tools
+      url: /tools/
       weight: 2
     - name: Guides
-      pageRef: /guides
+      url: /guides/
       weight: 3
+    - name: Blog
+      url: /blog/
+      weight: 4
     - name: About
-      pageRef: /about
-      weight: 4
-    - name: Contact ↗
-      url: "https://www.linkedin.com/in/cristian-curteanu/"
+      url: /about/
       weight: 5
+  footerLearn:
+    - name: Learning map
+      url: /tutorials/
+      weight: 1
+    - name: Python
+      url: /python/
+      weight: 2
+    - name: Python Fundamentals
+      url: /python/python-fundamentals/
+      weight: 3
+    - name: Python Standard Library
+      url: /python/python-standard-library/
+      weight: 4
     - name: Search
-      weight: 4
-      params:
-        type: search
-    - name: GitHub
+      url: /search/
       weight: 5
-      url: "https://github.com/CristianCurteanu"
-      params:
-        icon: github
-    - name: Twitter
-      weight: 6
-      url: "https://twitter.com/CristiCurteanu"
-      params:
-        icon: x-twitter
-
+  footerRead:
+    - name: Blog
+      url: /blog/
+      weight: 1
+    - name: Guides
+      url: /guides/
+      weight: 2
+    - name: Glossary
+      url: /glossary/
+      weight: 3
+    - name: Tags
+      url: /tags/
+      weight: 4
+  footerTools:
+    - name: All tools
+      url: /tools/
+      weight: 1
+    - name: Security tools
+      url: /tools/security/
+      weight: 2
+    - name: Backend tools
+      url: /tools/backend/
+      weight: 3
+    - name: API tools
+      url: /tools/api/
+      weight: 4
+    - name: Database tools
+      url: /tools/database/
+      weight: 5
+  footerProject:
+    - name: About
+      url: /about/
+      weight: 1
+    - name: GitHub
+      url: https://github.com/CristianCurteanu
+      weight: 2
+    - name: LinkedIn
+      url: https://www.linkedin.com/in/cristian-curteanu/
+      weight: 3
+    - name: X / Twitter
+      url: https://twitter.com/CristiCurteanu
+      weight: 4
 
 params:
-  author: "Cristian Curteanu"
-
-  navbar:
-    displayTitle: true
-    displayLogo: false
-
-  footer:
-    displayCopyright: true
-    displayPoweredBy: false
-
-  theme:
-    # light | dark | system
-    default: system
-    displayToggle: true
-
-  editURL:
-    enable: false
-    base: "https://github.com/imfing/hextra-starter-template/edit/main/content"
+  author: Cristian Curteanu
+  description: Free backend engineering tutorials and developer tools. Python, databases, message queues and system design, taught in four parts - why, how, run, impact.
+  tagline: Build the digital backbone.
+  ogImage: /images/og-default.png
+  twitter: CristiCurteanu
+  github: https://github.com/CristianCurteanu
+  linkedin: https://www.linkedin.com/in/cristian-curteanu/
+  # Substack publication that receives newsletter sign-ups.
+  newsletter: https://backendbootcamp.substack.com/subscribe
+  # Google Search Console HTML-tag verification token (optional; DNS verification needs no tag).
+  googleSiteVerification: ""
+  # Where "Edit on GitHub" points. Set to the content repo.
+  repo: https://github.com/CristianCurteanu/backend-bootcamp
+  repoBranch: main
+  # Progress is kept per browser session. Use "local" to keep it across visits.
+  progressStorage: session

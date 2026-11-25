@@ -1,0 +1,12 @@
+{{- /* {{< part "concept" "Why a program needs a plan for failure" >}} - opens one of the four lesson parts. */ -}}
+{{- $id := .Get 0 -}}
+{{- $parts := dict
+  "concept" (dict "n" "01" "label" "The Concept · Why" "c" "part-concept" "nav" "concept")
+  "code" (dict "n" "02" "label" "The Code · How" "c" "part-code" "nav" "code")
+  "ops" (dict "n" "03" "label" "The Operations · Run" "c" "part-ops" "nav" "ops")
+  "impact" (dict "n" "04" "label" "The Impact · Impact" "c" "part-impact" "nav" "impact") -}}
+{{- $d := index $parts $id -}}
+<div id="{{ $id }}" class="on-part not-prose {{ $d.c }} !mt-14 flex scroll-mt-24 flex-wrap items-center gap-x-5 gap-y-2 rounded-[14px] px-[26px] py-[22px]">
+  <span class="font-display text-[64px] font-extrabold leading-none tracking-[-0.04em]" aria-hidden="true">{{ $d.n }}</span>
+  <div class="flex min-w-[260px] flex-1 flex-col gap-0.5"><span class="font-mono text-xs uppercase tracking-[0.1em]">{{ $d.label }}</span><h2 class="m-0 font-display text-[32px] font-extrabold leading-[1.1] tracking-[-0.025em]" data-part-title>{{ .Get 1 }}</h2></div>
+</div>

@@ -1,0 +1,10 @@
+{{- /* {{< checklist id="ship" title="Before you ship" >}} - one item per line, optional leading "- " {{< /checklist >}} */ -}}
+{{- $id := .Get "id" | default "list" -}}
+<fieldset class="not-prose my-8 flex flex-col rounded-xl border border-warn bg-warn-bg px-[22px] py-[18px]" data-checklist="{{ $id }}">
+  <legend class="px-2 font-mono text-xs uppercase tracking-[0.1em] text-warn">{{ .Get "title" | default "Checklist" }}</legend>
+  {{- range $i, $l := split (trim .Inner "\n ") "\n" }}
+  {{- $t := strings.TrimPrefix "- " (trim $l " ") }}
+  {{- if $t }}
+  <label class="flex min-h-11 cursor-pointer items-center gap-3 text-base text-ink"><input type="checkbox" class="size-5 accent-[var(--ink)]" data-check="{{ $id }}-{{ $i }}">{{ $t | markdownify }}</label>
+  {{- end }}{{ end }}
+</fieldset>

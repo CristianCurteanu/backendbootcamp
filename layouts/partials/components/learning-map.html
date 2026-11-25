@@ -1,0 +1,27 @@
+{{- /* Four-level map. Data: data/learning_map.yaml */ -}}
+<div class="grid grid-cols-[repeat(auto-fit,minmax(min(270px,100%),1fr))] gap-5">
+  {{- range site.Data.learning_map }}
+  {{- $lv := . }}
+  <article class="flex flex-col gap-4 rounded-2xl border border-line bg-panel p-6">
+    <div class="flex items-center justify-between">
+      <span class="eyebrow">Level {{ .level }} · {{ .label }}</span>
+      <div class="flex gap-1" aria-hidden="true">
+        {{- range seq 4 }}<span class="h-1.5 w-[18px] rounded-[3px] {{ if le . $lv.level }}bg-ink{{ else }}bg-line{{ end }}"></span>{{ end }}
+      </div>
+    </div>
+    <h3 class="display text-[30px] tracking-[-0.025em]">{{ .title }}</h3>
+    <p class="min-h-[70px] text-[15px] text-ink2">{{ .blurb }}</p>
+    <ul class="flex flex-col">
+      {{- range .topics }}
+      <li class="border-t border-line-soft">
+        {{- if .url }}<a href="{{ .url }}" class="flex min-h-16 items-center justify-between gap-3 py-2.5 text-ink no-underline">
+        {{- else }}<div class="flex min-h-16 items-center justify-between gap-3 py-2.5">{{ end }}
+          <span class="flex flex-col"><strong class="text-base">{{ .name }}</strong><span class="text-[13px] text-muted">{{ .sub }}</span></span>
+          <span class="rounded-full border px-2.5 py-px font-mono text-[11px] uppercase tracking-[0.08em] {{ if eq .status "live" }}on-part border-[#16181d] bg-[#c4e8ce]{{ else }}border-line-strong text-muted{{ end }}">{{ if eq .status "live" }}Live{{ else }}Soon{{ end }}</span>
+        {{- if .url }}</a>{{ else }}</div>{{ end }}
+      </li>
+      {{- end }}
+    </ul>
+  </article>
+  {{- end }}
+</div>

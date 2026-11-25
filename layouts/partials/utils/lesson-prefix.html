@@ -1,0 +1,7 @@
+{{- /* Numeric directory prefix of a page ("08-error-handling" -> 8), or "" */ -}}
+{{- $out := "" -}}
+{{- with .File -}}
+  {{- $m := findRE `^\d+` (path.Base (strings.TrimSuffix "/" .Dir)) -}}
+  {{- if $m }}{{ $out = replaceRE `^0+(\d)` "$1" (index $m 0) }}{{ end -}}
+{{- end -}}
+{{- return $out -}}

@@ -1,0 +1,13 @@
+{{ define "main" }}
+<div class="wrap pb-24 pt-12">
+  {{ partial "components/breadcrumb.html" . }}
+  <header class="mb-10 mt-8 flex max-w-[860px] flex-col gap-4">
+    <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">{{ .Data.Singular | title }}</p>
+    <h1 class="display text-[clamp(38px,5vw,64px)] leading-[1.02]">Posts about {{ .Title | lower }}</h1>
+    <p class="text-xl text-ink2">{{ len .Pages }} {{ if eq (len .Pages) 1 }}post{{ else }}posts{{ end }} tagged {{ .Title | lower }} on Backend Bootcamp.</p>
+  </header>
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))] gap-6">
+    {{- range .Pages.ByDate.Reverse }}{{ if eq .Type "blog" }}{{ partial "components/post-card.html" (dict "page" .) }}{{ end }}{{ end }}
+  </div>
+</div>
+{{ end }}

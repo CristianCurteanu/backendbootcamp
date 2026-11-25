@@ -3,8 +3,6 @@ title: 'Free Developer Tools'
 linkTitle: 'Tools'
 description: '70+ free browser-based tools for software engineers — security, backend, API, database, cloud, data, platform, SRE, and more. No signup required.'
 weight: 3
-cascade:
-  type: docs
 ---
 
 Free, browser-based tools built for software engineers. No signup, no installation — all processing happens in your browser.

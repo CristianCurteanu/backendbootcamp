@@ -1,0 +1,11 @@
+{{- $link := .Get "link" -}}
+{{- $href := $link -}}
+{{- if and $link (not (hasPrefix $link "/")) (not (hasPrefix $link "http")) (not (hasPrefix $link "#")) -}}
+  {{- $href = printf "%s%s" $.Page.RelPermalink (strings.TrimPrefix "./" $link) -}}
+{{- end -}}
+{{- $href = $href | default "#" -}}
+<a href="{{ $href }}" data-lesson="{{ $href }}" class="card-link lift flex min-h-[72px] items-center justify-between gap-3 rounded-xl border border-line bg-panel px-5 py-4 text-ink no-underline hover:border-ink">
+  <span class="flex min-w-0 flex-col gap-0.5"><strong class="text-base leading-snug">{{ .Get "title" }}</strong>{{ with .Get "subtitle" }}<span class="text-sm font-normal leading-snug text-muted">{{ . }}</span>{{ end }}</span>
+  <svg data-lesson-check class="hidden shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Completed"><path d="M5 12l5 5 9-10"/></svg>
+  <svg class="shrink-0 text-muted" data-lesson-arrow width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+</a>

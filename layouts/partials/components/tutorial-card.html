@@ -1,0 +1,20 @@
+{{- /* Params: page (tutorial outline or category), cta */ -}}
+{{- $p := .page -}}
+{{- $lessons := 0 -}}{{- $mins := 0 -}}
+{{- range $p.Sections -}}{{- range .Sections -}}{{- $lessons = add $lessons 1 -}}{{- $mins = add $mins .ReadingTime -}}{{- end -}}{{- end -}}
+<a class="lift flex flex-col gap-[18px] rounded-2xl border-[1.5px] border-ink bg-panel p-7 text-ink no-underline" href="{{ $p.RelPermalink }}" data-tutorial-card data-tutorial="{{ $p.RelPermalink }}" data-total="{{ $lessons }}">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <span class="eyebrow">{{ $p.Params.level | default "Beginner" }} · {{ len $p.Sections }} {{ if eq (len $p.Sections) 1 }}module{{ else }}modules{{ end }}{{ if $lessons }} · {{ $lessons }} lessons{{ end }}</span>
+    {{ partial "components/part-squares.html" (dict "size" 14) }}
+  </div>
+  <h3 class="display text-[clamp(26px,3vw,34px)] tracking-[-0.025em]">{{ $p.Title }}</h3>
+  <p class="text-base text-ink2">{{ $p.Params.summary | default $p.Description }}</p>
+  <div class="flex flex-wrap gap-2">
+    {{- range first 9 $p.Sections }}<span class="rounded-full bg-chip px-3 py-1 text-[13px]">{{ .LinkTitle | default .Title }}</span>{{ end }}
+    {{- if gt (len $p.Sections) 9 }}<span class="rounded-full bg-chip px-3 py-1 text-[13px]">+ {{ sub (len $p.Sections) 9 }} more</span>{{ end }}
+  </div>
+  <div class="mt-auto flex items-center justify-between gap-3 pt-2 text-[15px] font-semibold">
+    <span>{{ .cta | default "Open the outline" }} →</span>
+    <span class="text-sm font-medium text-muted" data-progress-label hidden></span>
+  </div>
+</a>

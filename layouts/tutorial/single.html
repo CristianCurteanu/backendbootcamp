@@ -1,0 +1,9 @@
+{{ define "main" }}
+{{- $c := partial "utils/tutorial-ctx.html" . -}}
+{{- if eq $c.depth 0 }}{{ partial "tutorial/hub.html" (dict "page" . "ctx" $c) }}
+{{- else if eq $c.depth 1 }}{{ partial "tutorial/category.html" (dict "page" . "ctx" $c) }}
+{{- else if eq $c.depth 2 }}{{ partial "tutorial/outline.html" (dict "page" . "ctx" $c) }}
+{{- else if eq $c.depth 3 }}{{ partial "tutorial/module.html" (dict "page" . "ctx" $c) }}
+{{- else }}{{ partial "tutorial/lesson.html" (dict "page" . "ctx" $c) }}
+{{- end }}
+{{ end }}

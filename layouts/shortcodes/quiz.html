@@ -1,0 +1,13 @@
+{{- /* {{< quiz id="q1" q="Question?" options="A|B|C" answer="3" explain="Why." >}} - answer is 1-based. */ -}}
+{{- $id := .Get "id" | default "q1" -}}
+{{- $opts := split (.Get "options") "|" -}}
+<fieldset class="not-prose my-8 flex flex-col gap-1 rounded-xl border-[1.5px] border-ink bg-panel p-[22px]" data-quiz="{{ $id }}" data-answer="{{ .Get "answer" }}">
+  <legend class="px-2 font-mono text-xs uppercase tracking-[0.1em]">Check your understanding</legend>
+  <p class="mb-1.5 text-[17px] font-semibold text-ink">{{ .Get "q" }}</p>
+  {{- range $i, $o := $opts }}
+  <label class="flex min-h-12 cursor-pointer items-center gap-3 rounded-lg px-2 font-mono text-sm text-ink hover:bg-chip">
+    <input type="radio" name="quiz-{{ $id }}" value="{{ add $i 1 }}" class="size-5 accent-[var(--ink)]">{{ $o }}
+  </label>
+  {{- end }}
+  <p class="mt-2 hidden rounded-lg px-3 py-2.5 text-[15px]" role="status" data-quiz-result data-explain="{{ .Get "explain" }}"></p>
+</fieldset>

@@ -1,0 +1,31 @@
+{{- /* Left rail: tutorial -> modules -> lessons. Params: ctx, page */ -}}
+{{- $c := .ctx -}}{{- $cur := .page -}}
+{{- $t := $c.tutorial -}}
+<aside aria-label="Tutorial contents" class="max-lg:order-last max-w-full flex-[0_0_252px] lg:sticky lg:top-4 lg:max-h-[calc(100vh-2rem)] lg:overflow-y-auto" data-no-print>
+  <div class="flex flex-col gap-4" data-tree data-tutorial="{{ $t.RelPermalink }}">
+    <a href="{{ $t.RelPermalink }}" class="flex flex-col gap-0.5 text-ink no-underline"><span class="eyebrow text-[11px]">Tutorial</span><strong class="font-display text-[22px] font-extrabold tracking-[-0.02em]">{{ $t.Title }}</strong></a>
+    <div class="meter !h-2" role="progressbar" aria-label="Lessons completed" aria-valuemin="0" aria-valuenow="0" aria-valuemax="1" data-progress-bar data-tutorial="{{ $t.RelPermalink }}"><span></span></div>
+    <nav aria-label="Modules" class="flex flex-col border-t border-line">
+      {{- range $t.Sections.ByWeight }}
+      {{- $mod := . }}
+      {{- $isCur := or (eq $mod.RelPermalink $cur.RelPermalink) (and (ge $c.depth 3) (eq $mod.RelPermalink $c.module.RelPermalink)) }}
+      <details class="group border-b border-line-soft" {{ if $isCur }}open{{ end }} data-module data-module-total="{{ len .Sections }}">
+        <summary class="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 rounded-md py-1 pl-2.5 pr-2.5 text-[14.5px] font-semibold text-ink [&::-webkit-details-marker]:hidden {{ if eq $mod.RelPermalink $cur.RelPermalink }}bg-chip{{ end }}">
+          <span>{{ with partial "utils/lesson-number.html" $mod }}{{ . }}. {{ end }}{{ $mod.LinkTitle | default $mod.Title }}</span>
+          <span class="font-mono text-[11px] font-normal text-muted"><span data-module-count>0</span>/{{ len .Sections }}</span>
+        </summary>
+        <ul class="pb-1">
+          <li><a href="{{ $mod.RelPermalink }}" class="flex min-h-10 items-center rounded-md pl-6 pr-2.5 text-[13.5px] text-muted no-underline hover:text-ink {{ if eq $mod.RelPermalink $cur.RelPermalink }}font-semibold text-ink{{ end }}">Module overview</a></li>
+          {{- range .Sections.ByWeight }}
+          {{- $isL := eq .RelPermalink $cur.RelPermalink }}
+          <li><a href="{{ .RelPermalink }}" data-lesson="{{ .RelPermalink }}" {{ if $isL }}aria-current="page"{{ end }} class="flex min-h-11 items-center justify-between gap-2 rounded-md pl-6 pr-2.5 text-[14px] no-underline {{ if $isL }}bg-ops on-part font-semibold{{ else }}text-ink2 hover:bg-chip{{ end }}">
+            <span>{{ with partial "utils/lesson-number.html" . }}{{ . }} {{ end }}{{ .LinkTitle | default .Title }}</span>
+            <svg data-lesson-check class="hidden shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" role="img" aria-label="Completed"><path d="M5 12l5 5 9-10"/></svg>
+          </a></li>
+          {{- end }}
+        </ul>
+      </details>
+      {{- end }}
+    </nav>
+  </div>
+</aside>

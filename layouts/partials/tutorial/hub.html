@@ -1,0 +1,25 @@
+{{- $p := .page -}}
+<div class="wrap pb-8 pt-10">
+  {{ partial "components/breadcrumb.html" $p }}
+  <header class="mt-8 flex max-w-[820px] flex-col gap-5">
+    <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">Tutorials</p>
+    <h1 class="display text-[clamp(44px,6vw,80px)] leading-[0.98] tracking-[-0.035em]">The learning map</h1>
+    <p class="text-xl text-ink2">{{ $p.Description | default "Four levels from computer-science basics to the mindsets of senior backend engineers. Every tutorial follows the same four parts: why, how, run, impact." }}</p>
+  </header>
+</div>
+<section class="wrap pt-10" aria-label="Levels">{{ partial "components/learning-map.html" . }}</section>
+<section class="wrap pt-24" aria-labelledby="tracks-title">
+  {{ partial "components/section-head.html" (dict "id" "tracks-title" "eyebrow" "Live now" "title" "Tracks you can start today") }}
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(480px,100%),1fr))] gap-5">
+    {{- range $p.Sections.ByWeight }}
+    <a href="{{ .RelPermalink }}" class="lift flex flex-col gap-3 rounded-2xl border-[1.5px] border-ink bg-panel p-7 text-ink no-underline">
+      <span class="eyebrow">Programming languages · {{ len .Sections }} tutorials</span>
+      <h2 class="display text-[34px] tracking-[-0.025em]">{{ .LinkTitle | default .Title }}</h2>
+      <p class="text-ink2">{{ .Description | default "Learn the language, then the standard library that backend work leans on every day." }}</p>
+      <span class="mt-2 font-semibold">Open the track →</span>
+    </a>
+    {{- end }}
+  </div>
+</section>
+<div class="wrap max-w-[920px] pb-6">{{ partial "components/faq.html" $p.Params.faq }}</div>
+<div class="wrap pb-4"><div class="prose-bb mt-16 max-w-[760px]">{{ $p.Content }}</div></div>

@@ -1,0 +1,30 @@
+{{ define "main" }}
+<div class="wrap pb-24 pt-12" data-search-page>
+  <header class="flex max-w-[860px] flex-col gap-5">
+    <h1 class="display text-[clamp(40px,5.6vw,72px)] leading-[1] tracking-[-0.035em]">Search the bootcamp</h1>
+    <form role="search" action="/search/" method="get" class="flex flex-wrap gap-3" data-search-page-form>
+      <label for="q" class="sr-only">Tutorials, lessons and blog posts</label>
+      <input id="q" name="q" type="search" autocomplete="off" spellcheck="false" placeholder="Try: error handling" class="field min-h-14 flex-[1_1_320px] text-lg" data-search-page-input>
+      <button type="submit" class="btn btn-primary min-h-14 px-8">Search</button>
+    </form>
+    <p class="text-sm text-muted"><kbd class="rounded-md border border-line-strong px-1.5 py-0.5 font-mono text-xs">Ctrl K</kbd> opens search anywhere · <kbd class="rounded-md border border-line-strong px-1.5 py-0.5 font-mono text-xs">Esc</kbd> clears · <kbd class="rounded-md border border-line-strong px-1.5 py-0.5 font-mono text-xs">Enter</kbd> opens the top result</p>
+    <div class="flex flex-wrap items-center gap-2" aria-label="Suggestions">
+      <span class="text-sm text-muted">Popular:</span>
+      {{- range slice "variables" "decorators" "try except" "file handling" "virtual environments" }}<a class="tag" href="/search/?q={{ . | urlquery }}" data-suggestion>{{ . }}</a>{{ end }}
+    </div>
+  </header>
+  <div class="mt-12 flex flex-wrap items-start gap-10">
+    <aside aria-label="Filters" class="flex max-w-full flex-[0_0_240px] flex-col gap-6" data-search-facets></aside>
+    <section aria-live="polite" class="min-w-0 flex-[999_1_520px]">
+      <div class="mb-4 flex flex-wrap items-center justify-between gap-3 border-b-2 border-ink pb-3">
+        <h2 class="text-lg font-semibold" data-search-count>Type to search</h2>
+        <label class="flex items-center gap-2 text-sm text-ink2">Sort by
+          <select class="field min-h-11 text-sm" data-search-sort><option value="relevance">Relevance</option><option value="title">Title</option><option value="date">Newest</option></select>
+        </label>
+      </div>
+      <ol class="flex flex-col gap-3" data-search-page-results></ol>
+      <noscript><p class="panel p-5 text-ink2">Search needs JavaScript. Browse the <a class="underline" href="/tutorials/">learning map</a> or the <a class="underline" href="/blog/">blog</a> instead.</p></noscript>
+    </section>
+  </div>
+</div>
+{{ end }}

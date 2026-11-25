@@ -1,0 +1,9 @@
+{{- /* Params: eyebrow, title, lead, link (dict name,url), id, h (2|1) */ -}}
+<div class="mb-10 flex flex-wrap items-end justify-between gap-5">
+  <div class="flex max-w-[640px] flex-col gap-3">
+    {{- with .eyebrow }}<p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">{{ . }}</p>{{ end }}
+    <h2 {{ with .id }}id="{{ . }}"{{ end }} class="display text-[clamp(32px,4.4vw,48px)]">{{ .title }}</h2>
+  </div>
+  {{- with .lead }}<p class="max-w-[420px] text-[17px] text-ink2">{{ . }}</p>{{ end }}
+  {{- with .link }}<a href="{{ .url }}" class="inline-flex min-h-11 items-center border-b-2 border-accent font-semibold text-ink no-underline">{{ .name }}</a>{{ end }}
+</div>

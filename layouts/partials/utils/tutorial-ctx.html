@@ -1,0 +1,17 @@
+{{- /* Resolve the tutorial hierarchy for any page under content/tutorials. Returns a dict. */ -}}
+{{- $d := partial "utils/depth.html" . -}}
+{{- $anc := .Ancestors -}}
+{{- $ctx := dict "depth" $d -}}
+{{- if ge $d 1 -}}
+  {{- if eq $d 1 -}}{{- $ctx = merge $ctx (dict "category" .) -}}
+  {{- else -}}{{- $ctx = merge $ctx (dict "category" (index $anc (sub $d 2))) -}}{{- end -}}
+{{- end -}}
+{{- if ge $d 2 -}}
+  {{- if eq $d 2 -}}{{- $ctx = merge $ctx (dict "tutorial" .) -}}
+  {{- else -}}{{- $ctx = merge $ctx (dict "tutorial" (index $anc (sub $d 3))) -}}{{- end -}}
+{{- end -}}
+{{- if ge $d 3 -}}
+  {{- if eq $d 3 -}}{{- $ctx = merge $ctx (dict "module" .) -}}
+  {{- else -}}{{- $ctx = merge $ctx (dict "module" (index $anc 0)) -}}{{- end -}}
+{{- end -}}
+{{- return $ctx -}}

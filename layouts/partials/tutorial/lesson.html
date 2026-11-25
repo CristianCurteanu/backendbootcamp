@@ -1,0 +1,57 @@
+{{- $p := .page -}}{{- $c := .ctx -}}
+{{- $nav := partial "utils/lesson-nav.html" $p -}}
+{{- $num := partial "utils/lesson-number.html" $p -}}
+{{- $hasParts := in $p.RawContent "{{< part " -}}
+{{- $prev := false -}}{{- $next := false -}}
+{{- with $nav.prev }}{{ $prev = dict "title" (partial "utils/lesson-label.html" .) "url" .RelPermalink "kicker" "Previous" }}{{ end -}}
+{{- with $nav.next }}{{ $next = dict "title" (partial "utils/lesson-label.html" .) "url" .RelPermalink "kicker" "Next" }}{{ end -}}
+<div class="wrap flex flex-wrap items-start gap-10 pb-28 pt-8" data-lesson-page data-lesson="{{ $p.RelPermalink }}" data-lesson-title="{{ $p.Title }}" data-tutorial="{{ $c.tutorial.RelPermalink }}" data-tutorial-title="{{ $c.tutorial.Title }}">
+  {{ partial "tutorial/tree.html" (dict "ctx" $c "page" $p) }}
+
+  <article class="flex min-w-0 max-w-[780px] flex-[999_1_560px] flex-col gap-10" aria-labelledby="lesson-title" itemscope itemtype="https://schema.org/TechArticle">
+    <header class="flex flex-col gap-4">
+      {{ partial "components/breadcrumb.html" $p }}
+      <p class="font-mono text-[13px] uppercase tracking-[0.1em] text-accent-text">{{ with $num }}Lesson {{ . }} · {{ end }}{{ $c.tutorial.Params.level | default "Beginner" }} · {{ int (math.Max 1 $p.ReadingTime) }} min read</p>
+      <h1 id="lesson-title" itemprop="headline" class="display text-[clamp(36px,5vw,60px)] leading-[1.02] tracking-[-0.035em]">{{ $p.Title }}</h1>
+      {{- with $p.Params.lead }}<p class="text-xl text-ink2">{{ . }}</p>{{ end }}
+      <p class="text-sm text-muted">By <a href="/about/" rel="author" class="text-ink underline underline-offset-2" itemprop="author">{{ site.Params.author }}</a> · Updated <time itemprop="dateModified" datetime="{{ $p.Lastmod.Format "2006-01-02" }}">{{ $p.Lastmod.Format "Jan 2, 2006" }}</time></p>
+    </header>
+
+    {{- if $hasParts }}
+    <nav aria-label="Lesson parts" class="sticky top-2 z-[5] grid grid-cols-[repeat(auto-fit,minmax(min(150px,100%),1fr))] gap-2 rounded-[14px] border-[1.5px] border-ink bg-paper p-2" data-no-print>
+      {{- range (slice (dict "n" "01" "name" "Concept" "id" "concept" "c" "part-concept") (dict "n" "02" "name" "Code" "id" "code" "c" "part-code") (dict "n" "03" "name" "Operations" "id" "ops" "c" "part-ops") (dict "n" "04" "name" "Impact" "id" "impact" "c" "part-impact")) }}
+      <a href="#{{ .id }}" class="on-part flex min-h-12 items-center gap-2.5 rounded-[9px] px-3.5 text-[15px] font-semibold no-underline {{ .c }}"><span class="font-mono text-xs font-medium">{{ .n }}</span>{{ .name }}</a>
+      {{- end }}
+    </nav>
+    {{- end }}
+
+    <div class="prose-bb" itemprop="articleBody" data-lesson-body>{{ $p.Content }}</div>
+
+    <section class="panel flex flex-wrap items-center justify-between gap-4 p-5" aria-label="Lesson completion" data-no-print data-done="false" data-completion>
+      <div class="flex flex-col"><strong>Finished this lesson?</strong><span class="text-sm text-muted">Mark it complete to track your progress for this session.</span></div>
+      <button type="button" data-mark-complete aria-pressed="false" class="btn btn-accent min-h-12">
+        <span class="done-hide">Mark lesson complete</span>
+        <span class="done-show items-center gap-2"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"/></svg>Completed. Undo</span>
+      </button>
+    </section>
+
+    {{ partial "components/pager.html" (dict "label" "Lesson navigation" "prev" $prev "next" $next) }}
+  </article>
+
+  <aside aria-label="On this page" class="flex max-w-full flex-[0_0_208px] flex-col gap-6 lg:sticky lg:top-4" data-no-print>
+    {{- if $hasParts }}
+    <nav aria-label="On this page" class="flex flex-col" data-toc>
+      <span class="eyebrow pb-2 text-[11px]">On this page</span>
+      {{- range (slice (dict "name" "Concept" "id" "concept" "c" "var(--part-concept)") (dict "name" "Code" "id" "code" "c" "var(--part-code)") (dict "name" "Operations" "id" "ops" "c" "var(--part-ops)") (dict "name" "Impact" "id" "impact" "c" "var(--part-impact)")) }}
+      <a href="#{{ .id }}" class="flex min-h-11 items-center gap-2.5 border-t border-line-soft text-[15px] text-ink no-underline"><span class="size-3.5 rounded-[3px] border border-ink/40" style="background:{{ .c }}"></span>{{ .name }}</a>
+      {{- end }}
+    </nav>
+    {{- else }}{{ partial "components/toc.html" $p }}{{ end }}
+    <div class="flex flex-col gap-0.5 text-sm" data-done="false" data-completion-side>
+      <button type="button" data-mark-complete aria-pressed="false" class="btn btn-accent mb-3 min-h-12 text-[15px]"><span class="done-hide">Mark lesson complete</span><span class="done-show">Completed. Undo</span></button>
+      <button type="button" data-copy-link class="flex min-h-11 items-center text-left text-ink2 hover:text-ink">Copy link to this lesson</button>
+      <a href="{{ partial "utils/edit-url.html" $p }}" rel="noopener" target="_blank" class="flex min-h-11 items-center text-ink2 hover:text-ink">Edit on GitHub</a>
+      <a href="{{ site.Params.repo }}/issues/new?title={{ printf "Problem in: %s" $p.Title | urlquery }}&body={{ $p.Permalink | urlquery }}" rel="noopener" target="_blank" class="flex min-h-11 items-center text-ink2 hover:text-ink">Report a problem</a>
+    </div>
+  </aside>
+</div>

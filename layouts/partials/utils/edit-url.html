@@ -1,0 +1,1 @@
+{{- with .File -}}{{- return (printf "%s/edit/%s/content/%s" site.Params.repo site.Params.repoBranch (.Path | replaceRE `\\` "/")) -}}{{- else -}}{{- return "" -}}{{- end -}}

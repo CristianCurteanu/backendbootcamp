@@ -1,0 +1,15 @@
+{{- /* Cookie and data consent. Shown by JS until the visitor chooses; reopened from the footer. */ -}}
+<section id="consent-banner" hidden role="dialog" aria-modal="false" aria-labelledby="consent-title" aria-describedby="consent-desc" data-no-print class="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-[760px] rounded-2xl border-[1.5px] border-ink bg-panel p-5 text-ink shadow-[8px_8px_0_var(--shadow)] sm:p-6">
+  <h2 id="consent-title" class="font-display text-2xl font-extrabold tracking-[-0.02em]">Cookies and your data</h2>
+  <p id="consent-desc" class="mt-2 text-[15px] text-ink2">This site stores your lesson progress and theme in your browser so it works the way you left it. With your permission it also uses Google Analytics to count visits and see which lessons help. Nothing from Google Analytics runs until you accept. Read the <a href="/privacy/" class="font-semibold text-ink underline underline-offset-2">privacy policy</a>.</p>
+  <div data-consent-panel hidden class="mt-4 flex flex-col gap-1 border-t border-line pt-3">
+    <label class="flex min-h-12 items-start gap-3 py-2 text-[15px]"><input type="checkbox" checked disabled class="mt-0.5 size-5 accent-[var(--ink)]"><span><strong>Necessary storage.</strong> Saves your consent choice, theme and lesson progress in your browser. It never leaves your device. Always on.</span></label>
+    <label class="flex min-h-12 cursor-pointer items-start gap-3 py-2 text-[15px]"><input type="checkbox" data-consent-analytics class="mt-0.5 size-5 accent-[var(--ink)]"><span><strong>Analytics.</strong> Google Analytics sets cookies (<code class="font-mono text-[13px]">_ga</code>, <code class="font-mono text-[13px]">_ga_*</code>) and sends anonymous usage data to Google.</span></label>
+    <button type="button" data-consent-save class="btn btn-primary mt-2 min-h-12 self-start">Save my choices</button>
+  </div>
+  <div class="mt-4 flex flex-wrap gap-2.5">
+    <button type="button" data-consent-accept class="btn btn-primary min-h-12">Accept all</button>
+    <button type="button" data-consent-reject class="btn btn-outline min-h-12">Necessary only</button>
+    <button type="button" data-consent-customize aria-expanded="false" class="btn btn-ghost min-h-12">Customize</button>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+{{- /* "Anatomy of a tutorial" card. Param: compact (bool) */ -}}
+{{- $parts := slice
+  (dict "n" "01" "name" "The Concept" "tag" "Why" "q" "Why it exists, what it costs, and when it is the wrong tool." "c" "part-concept")
+  (dict "n" "02" "name" "The Code" "tag" "How" "q" "Build it step by step with code you can run and break." "c" "part-code")
+  (dict "n" "03" "name" "The Operations" "tag" "Run" "q" "Deploy it, watch it, and recover when it fails." "c" "part-ops")
+  (dict "n" "04" "name" "The Impact" "tag" "Impact" "q" "Measure what changed: latency, cost, reliability." "c" "part-impact") -}}
+<div class="offset-card flex flex-col gap-3 p-5">
+  <div class="flex items-center justify-between px-1 pb-1.5 eyebrow">
+    <span>{{ .title | default "Anatomy of a tutorial" }}</span><span>4 parts</span>
+  </div>
+  {{- range $parts }}
+  <div class="on-part flex items-center gap-4 rounded-[10px] px-4 py-3.5 {{ .c }}">
+    <span class="min-w-11 font-display text-[34px] font-extrabold leading-none tracking-[-0.03em]" aria-hidden="true">{{ .n }}</span>
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-center gap-2.5">
+        <strong class="text-[17px]">{{ .name }}</strong>
+        <span class="rounded-full border border-[#16181d] px-2.5 font-mono text-xs uppercase tracking-[0.08em]">{{ .tag }}</span>
+      </div>
+      <p class="mt-1 text-[15px] text-[#2a2d33]">{{ .q }}</p>
+    </div>
+  </div>
+  {{- end }}
+</div>

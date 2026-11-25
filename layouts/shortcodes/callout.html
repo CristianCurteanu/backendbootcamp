@@ -1,0 +1,7 @@
+{{- $type := .Get "type" | default (.Get 0) | default "info" -}}
+{{- $titles := dict "info" "Note" "tip" "Tip" "warning" "Watch out" "danger" "Danger" "mistake" "Common mistake" "exercise" "Exercise" -}}
+{{- $cls := $type -}}{{- if eq $type "mistake" }}{{ $cls = "info" }}{{ else if eq $type "exercise" }}{{ $cls = "tip" }}{{ end -}}
+<div class="callout callout-{{ $cls }} not-prose" role="note">
+  <strong class="callout-title">{{ .Get "title" | default (index $titles $type) | default "Note" }}</strong>
+  <div class="[&_p]:m-0 [&_code]:rounded [&_code]:bg-black/10 [&_code]:px-1.5 [&_code]:font-mono [&_code]:text-[0.875em]">{{ .Inner | markdownify }}</div>
+</div>

@@ -1,0 +1,3 @@
+{{- range (slice (dict "n" "Concept" "c" "var(--part-concept)") (dict "n" "Code" "c" "var(--part-code)") (dict "n" "Operations" "c" "var(--part-ops)") (dict "n" "Impact" "c" "var(--part-impact)")) }}
+<span class="inline-flex items-center gap-2 text-sm"><span class="size-3 rounded-[3px]" style="background:{{ .c }}"></span>{{ .n }}</span>
+{{- end }}
